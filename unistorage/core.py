@@ -1,52 +1,101 @@
+# -*- coding: utf-8 -*-
+"""
+    unistorage.core
+    ~~~~~~~~~~~~~~~
+
+    This module contains the interfaces that storage backends should
+    implement.
+
+    :copyright: (c) 2012 by Janne Vanhala.
+    :license: BSD, see LICENSE for more details.
+
+"""
+
+
 class Storage(object):
-    def __iter__(self):
-        raise NotImplementedError
-
-    def __contains__(self, name):
-        """
-        Return ``True`` if `name` refers to an existing container within
-        this storage, or ``False`` if the name is available for a new
-        container.
-        """
-        raise NotImplementedError
-
-
-class Container(object):
-
-    def __init__(self, storage, name):
-        self.storage = storage
-        self.name = name
 
     def __len__(self):
         """
-        Return the number of files in this container.
+        Return the number of files in this storage.
         """
         raise NotImplementedError
 
     def __iter__(self):
         """
-        Return a generator over the files in this container.
+        Iterate over the storage yielding each file contained in it.
         """
         raise NotImplementedError
 
-    def __contains__(self, name):
+    def accessed(self, name):
         """
-        Return ``True`` if `name` refers to an existing file within this
-        container, or ``False`` if the name is available for a new file.
+        Return the last accessed time of a file.
 
-        :param name: the name of the file to check for existence
+        For storage systems that are not able to return the last
+        accessed time this will raise :exc:`NotImplementedError`
+        instead.
+
+        If a file with the given `name` does not exist then a
+        :exc:`storage.exc.FileNotFoundError` exception is raised.
+
+        :argument name: the name of the file whose last accessed time
+          you want to check.
+        :returns: a :class:`datetime.datetime` object
         """
         raise NotImplementedError
 
-    def __getitem__(self, name):
+    def created(self, name):
+        """
+        Return the creation time of a file.
+
+        For storage systems that are not able to return the creation
+        time this will raise :exc:`NotImplementedError` instead.
+
+        If a file with the given `name` does not exist then a
+        :exc:`storage.exc.FileNotFoundError` exception is raised.
+
+        :argument name: the name of the file whose creation time you
+          want to check.
+        :returns: a :class:`datetime.datetime` object
+        """
+        raise NotImplementedError
+
+    def modified(self, name):
+        """
+        Return the last modified time of a file.
+
+        For storage systems that are not able to return the last
+        modified time this will raise :exc:`NotImplementedError`
+        instead.
+
+        If a file with the given `name` does not exist then a
+        :exc:`storage.exc.FileNotFoundError` exception is raised.
+
+        :argument name: the name of the file whose last modified time
+          you want to check.
+        :returns: a :class:`datetime.datetime` object
+        """
+        raise NotImplementedError
+
+    def exists(self, name):
+        """
+        Check for the existence of a file.
+
+        :argument name: the name of the file to check for existence
+        :returns: ``True`` if `name` refers to an existing file within
+          this storage, or ``False`` if the name is available for a new
+          file.
+        """
+        raise NotImplementedError
+
+    def open(self, name, mode='rb'):
         """
         Return an :class:`File` instance for an existing file.
 
         If a file with the given `name` does not exist then a
         :exc:`storage.exc.FileNotFoundError` exception is raised.
 
-        :param name: the name of the file to retrieve
-        :return: a :class:`File` representing the file requested
+        :argument name: the name of the file to retrieve
+        :returns: a :class:`File` representing the file requested
         """
         raise NotImplementedError
 
@@ -56,31 +105,14 @@ class Container(object):
 
 class File(object):
 
-    def __init__(self, container, name, mode):
-        self.container = container
+    def __init__(self, storage, name):
+        self.storage = storage
         self.name = name
         self._mode = mode
 
-    @property
-    def accessed(self):
-        """
-        A :class:`datetime.datetime` object representing the last time
-        this file was accessed.
-        """
-        raise NotImplementedError
-
-    @property
     def closed(self):
         """
         A boolean indicating whether the file is closed.
-        """
-        raise NotImplementedError
-
-    @property
-    def created(self):
-        """
-        A :class:`datetime.datetime` object representing the time this
-        file was created.
         """
         raise NotImplementedError
 
@@ -92,14 +124,6 @@ class File(object):
         return self._mode
 
     @property
-    def modified(self):
-        """
-        A :class:`datetime.datetime` object representing the last time
-        this file was modified.
-        """
-        raise NotImplementedError
-
-    @property
     def size(self):
         """
         The size of this file in bytes.
@@ -109,14 +133,6 @@ class File(object):
     @property
     def url(self):
         raise NotImplementedError
-
-    def exists(self):
-        pass
-
-    def delete(self):
-        """
-        Delete this file.
-        """
 
     def read(self, num_bytes=None):
         """
