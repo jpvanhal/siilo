@@ -3,8 +3,7 @@
     unistorage.core
     ~~~~~~~~~~~~~~~
 
-    This module contains the interfaces that storage backends should
-    implement.
+    This module contains the core API for Unistorage.
 
     :copyright: (c) 2012 by Janne Vanhala.
     :license: BSD, see LICENSE for more details.
