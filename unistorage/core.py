@@ -35,3 +35,7 @@ class File(object):
     def __init__(self, storage, key):
         self.storage = storage
         self.key = key
+
+    @property
+    def exists(self):
+        return self.key in self.storage

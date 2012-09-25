@@ -76,3 +76,25 @@ class TestFile(object):
         storage = flexmock()
         file_ = make_file(storage, 'README.rst')
         assert file_.key == 'README.rst'
+
+    def test_exists_returns_false_if_key_doesnt_exist(self):
+        storage = make_storage_with_fake_adapter()
+        file_ = make_file(storage, 'README.rst')
+        (flexmock(storage)
+            .should_receive('__contains__')
+            .with_args('README.rst')
+            .and_return(False)
+            .once()
+        )
+        assert not file_.exists
+
+    def test_exists_returns_true_if_key_exists(self):
+        storage = make_storage_with_fake_adapter()
+        file_ = make_file(storage, 'README.rst')
+        (flexmock(storage)
+            .should_receive('__contains__')
+            .with_args('README.rst')
+            .and_return(True)
+            .once()
+        )
+        assert file_.exists
