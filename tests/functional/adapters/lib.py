@@ -1,3 +1,5 @@
+from __future__ import with_statement
+
 import datetime
 import types
 
@@ -6,7 +8,6 @@ import pytest
 from unistorage.exceptions import FileNotFound
 
 
-@pytest.mark.functional
 class FunctionalTestCase(object):
     def test_read_fails_when_reading_non_existing_file(self):
         adapter = self.make_adapter()
@@ -95,3 +96,5 @@ class FunctionalTestCase(object):
         assert 'file2.txt' in filenames
         assert 'file3.txt' in filenames
 
+
+FunctionalTestCase = pytest.mark.functional(FunctionalTestCase)
