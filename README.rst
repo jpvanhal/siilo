@@ -16,5 +16,7 @@ Supported file storage providers include:
 Resources
 ---------
 
+* `Documentation <http://unistorage.readthedocs.org>`_
 * `Bug Tracker <http://github.com/jpvanhal/unistorage/issues>`_
 * `Code <http://github.com/jpvanhal/unistorage>`_
+* `Development Version <http://github.com/jpvanhal/unistorage/zipball/master#egg=Unistorage-dev>`_
