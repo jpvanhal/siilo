@@ -15,6 +15,10 @@ class Memory(Adapter):
     def exists(self, name):
         return name in self._files
 
+    def list(self):
+        for name in self._files:
+            yield name
+
     def read(self, name):
         try:
             return self._files[name]

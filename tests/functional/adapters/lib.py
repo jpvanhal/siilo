@@ -1,14 +1,16 @@
-from datetime import datetime, timedelta
-from pytest import mark, raises
+import datetime
+import types
+
+import pytest
 
 from unistorage.exceptions import FileNotFound
 
 
-@mark.functional
+@pytest.mark.functional
 class FunctionalTestCase(object):
     def test_read_fails_when_reading_non_existing_file(self):
         adapter = self.make_adapter()
-        with raises(FileNotFound):
+        with pytest.raises(FileNotFound):
             adapter.read('README.rst')
 
     def test_writing_and_reading(self):
@@ -39,7 +41,7 @@ class FunctionalTestCase(object):
 
     def test_delete_fails_when_deleting_non_existing_file(self):
         adapter = self.make_adapter()
-        with raises(FileNotFound):
+        with pytest.raises(FileNotFound):
             adapter.delete('README.rst')
 
     def test_size_returns_file_size(self):
@@ -49,17 +51,47 @@ class FunctionalTestCase(object):
 
     def test_size_fails_when_accessing_non_existing_file(self):
         adapter = self.make_adapter()
-        with raises(FileNotFound):
+        with pytest.raises(FileNotFound):
             adapter.size('README.rst')
 
     def test_modified_fails_when_accessing_non_existing_file(self):
         adapter = self.make_adapter()
-        with raises(FileNotFound):
-            adapter.modified('README.rst')
+        with pytest.raises(FileNotFound):
+            try:
+                adapter.modified('README.rst')
+            except NotImplementedError:
+                pytest.skip("not implemented in this adapter")
 
     def test_modified_returns_files_modified_time(self):
         adapter = self.make_adapter()
-        now = datetime.utcnow()
+        now = datetime.datetime.utcnow()
         adapter.write('README.rst', 'This is a readme.')
-        difference = now - adapter.modified('README.rst')
-        assert difference < timedelta(seconds=1)
+        try:
+            difference = now - adapter.modified('README.rst')
+        except NotImplementedError:
+            pytest.skip("not implemented in this adapter")
+        assert difference < datetime.timedelta(seconds=1)
+
+    def test_list_is_a_generator(self):
+        adapter = self.make_adapter()
+        assert isinstance(adapter.list(), types.GeneratorType)
+
+    def test_list_should_yield_nothing_if_storage_is_empty(self):
+        adapter = self.make_adapter()
+        filenames = list(adapter.list())
+        assert filenames == []
+
+    def test_list_should_yield_the_filenames_in_storage(self):
+        adapter = self.make_adapter()
+
+        adapter.write('file1.txt', 'some content')
+        adapter.write('file2.txt', 'some content')
+        adapter.write('file3.txt', 'some content')
+
+        filenames = list(adapter.list())
+
+        assert len(filenames) == 3
+        assert 'file1.txt' in filenames
+        assert 'file2.txt' in filenames
+        assert 'file3.txt' in filenames
+
