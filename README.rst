@@ -13,10 +13,22 @@ Supported file storage providers include:
 - Amazon S3
 - Rackspace Cloudfiles
 
+Installation
+------------
+
+You can install Unistorage with pip::
+
+    $ pip install unistorage
+
+The following Python platforms are officially supported:
+
+- Python 2.5-2.7 and 3.1-3.2
+- PyPy
+
 Resources
 ---------
 
 * `Documentation <http://unistorage.readthedocs.org>`_
 * `Bug Tracker <http://github.com/jpvanhal/unistorage/issues>`_
 * `Code <http://github.com/jpvanhal/unistorage>`_
-* `Development Version <http://github.com/jpvanhal/unistorage/zipball/master#egg=Unistorage-dev>`_
+* `Development Version <http://github.com/jpvanhal/unistorage/zipball/master#egg=unistorage-dev>`_
