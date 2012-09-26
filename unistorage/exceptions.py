@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
     unistorage.exceptions
-    ~~~~~~~~~~~~~~~~~
+    ~~~~~~~~~~~~~~~~~~~~~
 
     This module contains Unistorage-specific exceptions.
 
@@ -11,19 +11,19 @@
 """
 
 
-class StorageError(Exception):
+class UnistorageException(Exception):
     """
-    Base class for Storage errors.
+    Base class for all Unistorage exceptions.
     """
 
 
-class FileNotFoundError(StorageError):
+class FileNotFound(UnistorageException):
     """The file was not found."""
 
 
-class FileExistsError(StorageError):
+class FileExistsError(UnistorageException):
     """The file already existed."""
 
 
-class PermissionError(StorageError):
+class PermissionError(UnistorageException):
     pass
