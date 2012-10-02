@@ -9,6 +9,9 @@
     :license: BSD, see LICENSE for more details.
 
 """
+from __future__ import unicode_literals
+
+from .compat import force_text, unicode_compatible
 
 
 class UnistorageException(Exception):
@@ -17,14 +20,18 @@ class UnistorageException(Exception):
     """
 
 
+@unicode_compatible
 class FileNotFound(UnistorageException):
-    """An attempt to access a file that does not exist."""
+    """
+    Raised when attempting to access a file that does not exist.
 
+    :param name: name of the file
+    """
     def __init__(self, name):
-        self.name = name
-        super(FileNotFound, self).__init__(
-            'The file "%s" was not found.' % name
-        )
+        self.name = force_text(name, 'utf-8')
+
+    def __str__(self):
+        return 'The file "%s" was not found.' % self.name
 
 
 class FileExistsError(UnistorageException):
@@ -35,17 +42,19 @@ class PermissionError(UnistorageException):
     pass
 
 
+@unicode_compatible
 class SuspiciousFilename(UnistorageException):
     """
     Raised when a suspicious filename is supplied to an adapter.
 
-    This error can occur in when using the
+    This error can occur when using the
     :class:`unistorage.adapters.local.Local` adapter and the filename is
     not within the base directory.
-    """
 
+    :param name: name of the file
+    """
     def __init__(self, name):
-        self.name = name
-        super(SuspiciousFilename, self).__init__(
-            'The file "%s" is not within the storage.' % name
-        )
+        self.name = force_text(name, 'utf-8')
+
+    def __str__(self):
+        return 'The file "%s" is not within the storage.' % self.name
