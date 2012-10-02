@@ -33,3 +33,19 @@ class FileExistsError(UnistorageException):
 
 class PermissionError(UnistorageException):
     pass
+
+
+class SuspiciousFilename(UnistorageException):
+    """
+    Raised when a suspicious filename is supplied to an adapter.
+
+    This error can occur in when using the
+    :class:`unistorage.adapters.local.Local` adapter and the filename is
+    not within the base directory.
+    """
+
+    def __init__(self, name):
+        self.name = name
+        super(SuspiciousFilename, self).__init__(
+            'The file "%s" is not within the storage.' % name
+        )
