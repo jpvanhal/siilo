@@ -22,7 +22,7 @@ You can install Unistorage with pip::
 
 The following Python platforms are officially supported:
 
-- Python 2.5-2.7 and 3.1-3.2
+- Python 2.6, 2.7, 3.1 and 3.2
 - PyPy
 
 Resources
