@@ -6,7 +6,7 @@ python:
   - "3.2"
   - pypy
 install:
-  - pip install -q -e --use-mirrors .
+  - pip install -q --use-mirrors -e .
   - pip install -q --use-mirrors pytest
   - pip install -q --use-mirrors flexmock
 script:
