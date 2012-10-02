@@ -1,5 +1,8 @@
 *.egg-info/
 *.pyc
+.coverage
 .env
+.tox/
 dist/
 docs/_build/
+htmlcov/
