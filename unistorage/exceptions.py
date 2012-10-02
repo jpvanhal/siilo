@@ -18,7 +18,13 @@ class UnistorageException(Exception):
 
 
 class FileNotFound(UnistorageException):
-    """The file was not found."""
+    """An attempt to access a file that does not exist."""
+
+    def __init__(self, name):
+        self.name = name
+        super(FileNotFound, self).__init__(
+            'The file "%s" was not found.' % name
+        )
 
 
 class FileExistsError(UnistorageException):

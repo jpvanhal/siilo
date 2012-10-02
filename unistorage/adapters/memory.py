@@ -10,7 +10,7 @@ class Memory(Adapter):
         try:
             del self._files[name]
         except KeyError:
-            raise FileNotFound
+            raise FileNotFound(name)
 
     def exists(self, name):
         return name in self._files
@@ -23,13 +23,13 @@ class Memory(Adapter):
         try:
             return self._files[name]
         except KeyError:
-            raise FileNotFound
+            raise FileNotFound(name)
 
     def size(self, name):
         try:
             return len(self._files[name])
         except KeyError:
-            raise FileNotFound
+            raise FileNotFound(name)
 
     def write(self, name, content):
         self._files[name] = content
