@@ -22,7 +22,7 @@ def assert_exists(fn):
 
 class Local(Adapter):
     """
-    A adapter for the local filesystem.
+    An adapter for the local filesystem.
 
     :param directory: the directory where the file storage is located in.
     """
