@@ -8,5 +8,6 @@ python:
 install:
   - "pip install -r requirements.txt --use-mirrors"
   - "if [[ ! $TRAVIS_PYTHON_VERSION =~ ^3\\. ]]; then pip install --use-mirrors boto; fi"
+  - "pip install --use-mirrors ."
 script:
   - py.test
