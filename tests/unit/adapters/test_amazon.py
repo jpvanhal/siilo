@@ -1,5 +1,3 @@
-import os
-
 import pytest
 from flexmock import flexmock
 
@@ -95,7 +93,7 @@ class TestAmazonS3(object):
             .should_receive('create_bucket')
             .never()
         )
-        with pytest.raises(S3ResponseError) as exc:
+        with pytest.raises(S3ResponseError):
             adapter._get_or_create_bucket()
 
     def test_bucket_delegates_to_get_or_create_bucket(self):
