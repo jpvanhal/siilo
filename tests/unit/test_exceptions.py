@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
-import six
+from unistorage.compat import text_type, force_bytes, force_text
 
 
 class TestFileNotFound(object):
@@ -16,11 +14,11 @@ class TestFileNotFound(object):
 
     def test_string_representation(self):
         exc = self.make_exception('README.rst')
-        assert six.text_type(exc) == 'The file "README.rst" was not found.'
+        assert text_type(exc) == force_text('The file "README.rst" was not found.')
 
     def test_string_representation_when_name_is_bytes_and_non_ascii(self):
-        exc = self.make_exception('Äö'.encode('utf8'))
-        assert six.text_type(exc) == 'The file "Äö" was not found.'
+        exc = self.make_exception(force_bytes('Äö'))
+        assert text_type(exc) == force_text('The file "Äö" was not found.')
 
     def test_is_unistorage_exception(self):
         from unistorage.exceptions import UnistorageException
@@ -41,15 +39,15 @@ class TestSuspiciousFilename(object):
     def test_string_representation(self):
         exc = self.make_exception('../etc/passwd')
         assert (
-            six.text_type(exc) ==
-            'The file "../etc/passwd" is not within the storage.'
+            text_type(exc) ==
+            force_text('The file "../etc/passwd" is not within the storage.')
         )
 
     def test_string_representation_when_name_is_bytes_and_non_ascii(self):
-        exc = self.make_exception('../Äö'.encode('utf8'))
+        exc = self.make_exception(force_bytes('../Äö'))
         assert (
-            six.text_type(exc) ==
-            'The file "../Äö" is not within the storage.'
+            text_type(exc) ==
+            force_text('The file "../Äö" is not within the storage.')
         )
 
     def test_is_unistorage_exception(self):
