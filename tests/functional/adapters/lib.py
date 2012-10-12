@@ -11,8 +11,15 @@ class FunctionalTestCase(object):
     def make_adapter(self):
         raise NotImplementedError
 
+    def teardown_adapter(self, adapter):
+        pass
+
     def setup_method(self, method):
         self.adapter = self.make_adapter()
+
+    def teardown_method(self, method):
+        if hasattr(self, 'adapter'):
+            self.teardown_adapter(self.adapter)
 
     def test_read_fails_when_reading_non_existing_file(self):
         with pytest.raises(FileNotFound) as exc:
