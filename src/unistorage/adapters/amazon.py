@@ -81,10 +81,7 @@ class AmazonS3(Adapter):
         return boto
 
     def delete(self, name):
-        key = self.bucket.get_key(name)
-        if not key:
-            raise FileNotFound(name)
-        return key.delete()
+        self.bucket.delete_key(name)
 
     def exists(self, name):
         key = self.bucket.new_key(name)

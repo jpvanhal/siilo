@@ -156,3 +156,14 @@ class TestAmazonS3(object):
             .once()
         )
         assert adapter.exists('README.rst') is True
+
+    def test_delete_delegates_to_buckets_delete_key(self):
+        adapter = make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter._bucket = flexmock()
+        (
+            flexmock(adapter.bucket)
+            .should_receive('delete_key')
+            .with_args('README.rst')
+            .once()
+        )
+        adapter.delete('README.rst')
