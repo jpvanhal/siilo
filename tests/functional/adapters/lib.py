@@ -6,6 +6,7 @@ import pytest
 from unistorage.exceptions import FileNotFound
 
 
+@pytest.mark.functional
 class FunctionalTestCase(object):
     def make_adapter(self):
         raise NotImplementedError
@@ -89,6 +90,3 @@ class FunctionalTestCase(object):
         assert 'file1.txt' in filenames
         assert 'file2.txt' in filenames
         assert 'file3.txt' in filenames
-
-
-FunctionalTestCase = pytest.mark.functional(FunctionalTestCase)

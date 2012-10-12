@@ -16,8 +16,8 @@ def make_adapter(*args, **kwargs):
     return Local(*args, **kwargs)
 
 
+@pytest.mark.unit
 class TestLocal(object):
-
     def test_constructor_normalizes_and_sets_directory(self):
         Local = get_adapter_class()
         (

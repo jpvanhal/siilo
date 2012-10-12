@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
+import pytest
+
 from unistorage.compat import text_type, force_bytes, force_text
 
 
+@pytest.mark.unit
 class TestFileNotFound(object):
     @staticmethod
     def make_exception(*args, **kwargs):
@@ -29,6 +32,7 @@ class TestFileNotFound(object):
         assert isinstance(exc, UnistorageException)
 
 
+@pytest.mark.unit
 class TestSuspiciousFilename(object):
     @staticmethod
     def make_exception(*args, **kwargs):

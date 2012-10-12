@@ -12,6 +12,7 @@ def make_adapter(*args, **kwargs):
     return AmazonS3(*args, **kwargs)
 
 
+@pytest.mark.unit
 class TestAmazonS3(object):
     def setup_method(self, method):
         pytest.importorskip("boto")
@@ -117,5 +118,3 @@ class TestAmazonS3(object):
             .never()
         )
         assert adapter.bucket is adapter._bucket
-
-TestAmazonS3 = pytest.mark.unit(TestAmazonS3)

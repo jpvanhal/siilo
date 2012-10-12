@@ -1,4 +1,5 @@
 from flexmock import flexmock
+import pytest
 
 
 def get_storage_class():
@@ -27,6 +28,7 @@ def make_storage_with_fake_adapter():
     return storage
 
 
+@pytest.mark.unit
 class TestStorage(object):
 
     def test_constructor_sets_adapter(self):
@@ -70,6 +72,7 @@ class TestStorage(object):
         assert storage['README.rst'] is fake_file
 
 
+@pytest.mark.unit
 class TestFile(object):
     def test_constructor_sets_storage(self):
         storage = flexmock()
