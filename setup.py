@@ -1,10 +1,21 @@
 from distutils.core import setup
+import os
+import re
 
-import unistorage
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+
+def get_version():
+    filename = os.path.join(HERE, 'src', 'unistorage', '__init__.py')
+    contents = open(filename).read()
+    pattern = r"^__version__ = '(.*?)'$"
+    return re.match(pattern, contents, re.MULTILINE).group(1)
+
 
 setup(
     name='Unistorage',
-    version=unistorage.__version__,
+    version=get_version(),
     description='File storage abstraction layer',
     long_description=open('README.rst').read() + '\n' +
                      open('CHANGES.rst').read(),
@@ -17,6 +28,9 @@ setup(
     ],
     package_data={
         '': ['LICENSE']
+    },
+    package_dir={
+        '': 'src'
     },
     license=open('LICENSE').read(),
     platforms='any',
