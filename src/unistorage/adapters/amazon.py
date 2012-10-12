@@ -87,7 +87,8 @@ class AmazonS3(Adapter):
         return key.delete()
 
     def exists(self, name):
-        return self.bucket.get_key(name) is not None
+        key = self.bucket.new_key(name)
+        return key.exists()
 
     def write(self, name, content):
         key = self.bucket.new_key(name)

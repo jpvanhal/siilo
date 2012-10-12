@@ -118,3 +118,41 @@ class TestAmazonS3(object):
             .never()
         )
         assert adapter.bucket is adapter._bucket
+
+    def test_exists_returns_false_if_file_does_not_exist(self):
+        adapter = make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter._bucket = flexmock()
+        fake_key = flexmock()
+        (
+            flexmock(adapter.bucket)
+            .should_receive('new_key')
+            .with_args('README.rst')
+            .and_return(fake_key)
+            .once()
+        )
+        (
+            fake_key
+            .should_receive('exists')
+            .and_return(False)
+            .once()
+        )
+        assert adapter.exists('README.rst') is False
+
+    def test_exists_returns_false_if_file_does_exists(self):
+        adapter = make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter._bucket = flexmock()
+        fake_key = flexmock()
+        (
+            flexmock(adapter.bucket)
+            .should_receive('new_key')
+            .with_args('README.rst')
+            .and_return(fake_key)
+            .once()
+        )
+        (
+            fake_key
+            .should_receive('exists')
+            .and_return(True)
+            .once()
+        )
+        assert adapter.exists('README.rst') is True
