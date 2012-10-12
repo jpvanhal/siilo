@@ -41,10 +41,8 @@ class FunctionalTestCase(object):
         self.adapter.delete('README.rst')
         assert not self.adapter.exists('README.rst')
 
-    def test_delete_fails_when_deleting_non_existing_file(self):
-        with pytest.raises(FileNotFound) as exc:
-            self.adapter.delete('README.rst')
-            assert exc.name == 'README.rst'
+    def test_delete_does_not_fail_when_deleting_non_existing_file(self):
+        self.adapter.delete('README.rst')
 
     def test_size_returns_file_size(self):
         self.adapter.write('README.rst', 'This is a readme.')

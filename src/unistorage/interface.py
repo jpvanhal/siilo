@@ -37,9 +37,6 @@ class Adapter(object):
         """
         Delete the file referenced by ``name``.
 
-        If a file with the given `name` does not exist then a
-        :exc:`storage.exc.FileNotFoundError` exception is raised.
-
         :argument name: the name of the file to be deleted
         """
         raise NotImplementedError

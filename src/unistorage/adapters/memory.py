@@ -10,7 +10,7 @@ class Memory(Adapter):
         try:
             del self._files[name]
         except KeyError:
-            raise FileNotFound(name)
+            pass
 
     def exists(self, name):
         return name in self._files

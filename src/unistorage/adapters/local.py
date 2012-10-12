@@ -29,9 +29,12 @@ class Local(Adapter):
     def __init__(self, directory):
         self.directory = self.normalize_path(directory)
 
-    @assert_exists
     def delete(self, name):
-        os.remove(self.compute_path(name))
+        try:
+            os.remove(self.compute_path(name))
+        except OSError as exc:
+            if exc.errno != errno.ENOENT:
+                raise
 
     def exists(self, name):
         return os.path.exists(self.compute_path(name))
