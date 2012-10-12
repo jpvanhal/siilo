@@ -17,8 +17,10 @@ setup(
     name='Unistorage',
     version=get_version(),
     description='File storage abstraction layer',
-    long_description=open('README.rst').read() + '\n' +
-                     open('CHANGES.rst').read(),
+    long_description=(
+        open('README.rst').read() + '\n' +
+        open('CHANGES.rst').read()
+    ),
     author='Janne Vanhala',
     author_email='janne.vanhala@gmail.com',
     url='http://github.com/jpvanhal/unistorage',

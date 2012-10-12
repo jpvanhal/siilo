@@ -14,7 +14,10 @@ class TestFileNotFound(object):
 
     def test_string_representation(self):
         exc = self.make_exception('README.rst')
-        assert text_type(exc) == force_text('The file "README.rst" was not found.')
+        assert (
+            text_type(exc) ==
+            force_text('The file "README.rst" was not found.')
+        )
 
     def test_string_representation_when_name_is_bytes_and_non_ascii(self):
         exc = self.make_exception(force_bytes('Äö'))
