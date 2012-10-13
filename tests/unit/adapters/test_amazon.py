@@ -1,6 +1,7 @@
 from flexmock import flexmock
 import pytest
 
+from unistorage.exceptions import FileNotFound
 
 
 @pytest.mark.unit
@@ -166,3 +167,83 @@ class TestAmazonS3(object):
             .once()
         )
         adapter.delete('README.rst')
+
+    def test_read_returns_file_contents(self):
+        adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter._bucket = flexmock()
+        fake_key = flexmock()
+        (
+            flexmock(adapter.bucket)
+            .should_receive('get_key')
+            .with_args('README.rst')
+            .and_return(fake_key)
+            .once()
+        )
+        (
+            fake_key
+            .should_receive('get_contents_as_string')
+            .and_return('This is a readme.')
+            .once()
+        )
+        content = adapter.read('README.rst')
+        assert content == 'This is a readme.'
+
+    def test_read_fails_when_reading_non_existing_file(self):
+        adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter._bucket = flexmock()
+        (
+            flexmock(adapter.bucket)
+            .should_receive('get_key')
+            .with_args('README.rst')
+            .and_return(None)
+            .once()
+        )
+        with pytest.raises(FileNotFound) as exc:
+            adapter.read('README.rst')
+            assert exc.name == 'README.rst'
+
+    def test_write(self):
+        adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter._bucket = flexmock()
+        fake_key = flexmock()
+        (
+            flexmock(adapter.bucket)
+            .should_receive('new_key')
+            .with_args('README.rst')
+            .and_return(fake_key)
+            .once()
+        )
+        (
+            fake_key
+            .should_receive('set_contents_from_string')
+            .with_args('This is a readme.')
+            .once()
+        )
+        adapter.write('README.rst', 'This is a readme.')
+
+    def test_size_returns_file_size(self):
+        adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter._bucket = flexmock()
+        fake_key = flexmock(size=17)
+        (
+            flexmock(adapter.bucket)
+            .should_receive('get_key')
+            .with_args('README.rst')
+            .and_return(fake_key)
+            .once()
+        )
+        assert adapter.size('README.rst') == 17
+
+    def test_size_fails_unless_file_exists(self):
+        adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter._bucket = flexmock()
+        (
+            flexmock(adapter.bucket)
+            .should_receive('get_key')
+            .with_args('README.rst')
+            .and_return(None)
+            .once()
+        )
+        with pytest.raises(FileNotFound) as exc:
+            adapter.size('README.rst')
+            assert exc.name == 'README.rst'
