@@ -101,5 +101,8 @@ class AmazonS3(Adapter):
         key = self.bucket.get_key(name)
         if not key:
             raise FileNotFound(name)
-        metadata = key.get_metadata()
-        return metadata
+        return key.size
+
+    def list(self):
+        for key in self.bucket.list():
+            yield key.name
