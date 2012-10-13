@@ -1,15 +1,6 @@
-import pytest
 from flexmock import flexmock
+import pytest
 
-
-def get_adapter_class():
-    from unistorage.adapters.amazon import AmazonS3
-    return AmazonS3
-
-
-def make_adapter(*args, **kwargs):
-    AmazonS3 = get_adapter_class()
-    return AmazonS3(*args, **kwargs)
 
 
 @pytest.mark.unit
@@ -17,8 +8,16 @@ class TestAmazonS3(object):
     def setup_method(self, method):
         pytest.importorskip("boto")
 
+    def get_adapter_class(self):
+        from unistorage.adapters.amazon import AmazonS3
+        return AmazonS3
+
+    def make_adapter(self, *args, **kwargs):
+        AmazonS3 = self.get_adapter_class()
+        return AmazonS3(*args, **kwargs)
+
     def test_constructor_creates_s3_connection_from_credentials(self):
-        AmazonS3 = get_adapter_class()
+        AmazonS3 = self.get_adapter_class()
 
         fake_boto = flexmock()
         (
@@ -40,11 +39,11 @@ class TestAmazonS3(object):
         assert adapter.connection is fake_connection
 
     def test_contructors_sets_bucket_name(self):
-        adapter = make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
         assert adapter.bucket_name == 'test-bucket'
 
     def test_get_or_create_bucket_retrieves_the_bucket_if_it_exists(self):
-        adapter = make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
         fake_bucket = flexmock()
         (
             flexmock(adapter.connection)
@@ -59,7 +58,7 @@ class TestAmazonS3(object):
     def test_get_or_create_bucket_creates_the_bucket_unless_it_exists(self):
         from boto.exception import S3ResponseError
 
-        adapter = make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
         (
             flexmock(adapter.connection)
             .should_receive('get_bucket')
@@ -81,7 +80,7 @@ class TestAmazonS3(object):
     def test_get_or_create_bucket_fails_on_permission_error(self):
         from boto.exception import S3ResponseError
 
-        adapter = make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
         (
             flexmock(adapter.connection)
             .should_receive('get_bucket')
@@ -98,7 +97,7 @@ class TestAmazonS3(object):
             adapter._get_or_create_bucket()
 
     def test_bucket_delegates_to_get_or_create_bucket(self):
-        adapter = make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
         fake_bucket = flexmock()
         (
             flexmock(adapter)
@@ -110,7 +109,7 @@ class TestAmazonS3(object):
         assert adapter._bucket is fake_bucket
 
     def test_bucket_uses_cached_bucket_if_present(self):
-        adapter = make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
         adapter._bucket = flexmock()
         (
             flexmock(adapter)
@@ -120,7 +119,7 @@ class TestAmazonS3(object):
         assert adapter.bucket is adapter._bucket
 
     def test_exists_returns_false_if_file_does_not_exist(self):
-        adapter = make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
         adapter._bucket = flexmock()
         fake_key = flexmock()
         (
@@ -139,7 +138,7 @@ class TestAmazonS3(object):
         assert adapter.exists('README.rst') is False
 
     def test_exists_returns_false_if_file_does_exists(self):
-        adapter = make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
         adapter._bucket = flexmock()
         fake_key = flexmock()
         (
@@ -158,7 +157,7 @@ class TestAmazonS3(object):
         assert adapter.exists('README.rst') is True
 
     def test_delete_delegates_to_buckets_delete_key(self):
-        adapter = make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
         adapter._bucket = flexmock()
         (
             flexmock(adapter.bucket)
