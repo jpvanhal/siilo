@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+"""
+    unistorage.interface
+    ~~~~~~~~~~~~~~~~~~~~
+
+    :copyright: (c) 2012 by Janne Vanhala.
+    :license: BSD, see LICENSE for more details.
+"""
+
+
 class Adapter(object):
 
     def accessed(self, name):

@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+"""
+    unistorage.adapters.local
+    ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    :copyright: (c) 2012 by Janne Vanhala.
+    :license: BSD, see LICENSE for more details.
+"""
+
 from datetime import datetime
 from functools import wraps
 import errno

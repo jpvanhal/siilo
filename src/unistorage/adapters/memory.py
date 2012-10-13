@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+"""
+    unistorage.adapters.memory
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    :copyright: (c) 2012 by Janne Vanhala.
+    :license: BSD, see LICENSE for more details.
+"""
+
 from unistorage.exceptions import FileNotFound
 from unistorage.interface import Adapter
 

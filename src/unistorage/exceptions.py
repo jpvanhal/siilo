@@ -7,8 +7,8 @@
 
     :copyright: (c) 2012 by Janne Vanhala.
     :license: BSD, see LICENSE for more details.
-
 """
+
 from __future__ import unicode_literals
 
 from .compat import force_text, unicode_compatible
