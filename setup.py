@@ -10,7 +10,7 @@ def get_version():
     filename = os.path.join(HERE, 'src', 'unistorage', '__init__.py')
     contents = open(filename).read()
     pattern = r"^__version__ = '(.*?)'$"
-    return re.match(pattern, contents, re.MULTILINE).group(1)
+    return re.search(pattern, contents, re.MULTILINE).group(1)
 
 
 setup(
