@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flexmock import flexmock
 import pytest
 
@@ -42,6 +44,26 @@ class TestAmazonS3(object):
     def test_contructors_sets_bucket_name(self):
         adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
         assert adapter.bucket_name == 'test-bucket'
+
+    def test_constructor_default_for_use_query_auth(self):
+        adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        assert adapter.use_query_auth is True
+
+    def test_constructor_default_for_querystring_expires(self):
+        adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        assert adapter.querystring_expires == 3600
+
+    def test_constructor_sets_use_query_auth(self):
+        adapter = self.make_adapter(
+            'TEST_ID', 'TEST_SECRET', 'test-bucket', use_query_auth=False
+        )
+        assert adapter.use_query_auth is False
+
+    def test_constructor_sets_querystring_expires(self):
+        adapter = self.make_adapter(
+            'TEST_ID', 'TEST_SECRET', 'test-bucket', querystring_expires=500
+        )
+        assert adapter.querystring_expires == 500
 
     def test_get_or_create_bucket_retrieves_the_bucket_if_it_exists(self):
         adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
@@ -247,3 +269,96 @@ class TestAmazonS3(object):
         with pytest.raises(FileNotFound) as exc:
             adapter.size('README.rst')
             assert exc.name == 'README.rst'
+
+    def test_modified_fails_unless_file_exists(self):
+        adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter._bucket = flexmock()
+        (
+            flexmock(adapter.bucket)
+            .should_receive('get_key')
+            .with_args('README.rst')
+            .and_return(None)
+            .once()
+        )
+        with pytest.raises(FileNotFound) as exc:
+            adapter.modified('README.rst')
+            assert exc.name == 'README.rst'
+
+    def test_modified_returns_last_modification_date_as_datetime(self):
+        adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter._bucket = flexmock()
+        fake_key = flexmock(last_modified='Sun, 14 Oct 2012 10:20:56 GMT')
+        (
+            flexmock(adapter.bucket)
+            .should_receive('get_key')
+            .with_args('README.rst')
+            .and_return(fake_key)
+            .once()
+        )
+        modified = adapter.modified('README.rst')
+        assert modified == datetime(2012, 10, 14, 10, 20, 56)
+
+    def test_modified_normalizes_timezone_to_utc(self):
+        adapter = self.make_adapter('TEST_ID', 'TEST_SECRET', 'test-bucket')
+        adapter._bucket = flexmock()
+        fake_key = flexmock(last_modified='Sun, 14 Oct 2012 10:20:56 +0200')
+        (
+            flexmock(adapter.bucket)
+            .should_receive('get_key')
+            .with_args('README.rst')
+            .and_return(fake_key)
+            .once()
+        )
+        modified = adapter.modified('README.rst')
+        assert modified == datetime(2012, 10, 14, 8, 20, 56)
+
+    def test_url_without_querystring_authentication(self):
+        adapter = self.make_adapter(
+            'TEST_ID', 'TEST_SECRET', 'test-bucket', use_query_auth=False
+        )
+        (
+            flexmock(adapter.connection)
+            .should_receive('generate_url')
+            .with_args(
+                3600,
+                'GET',
+                bucket='test-bucket',
+                key='README.rst',
+                query_auth=False
+            )
+            .and_return('https://unistorage-test.s3.amazonaws.com/README.rst')
+            .once()
+        )
+        url = adapter.url('README.rst')
+        assert url == 'https://unistorage-test.s3.amazonaws.com/README.rst'
+
+    def test_url_with_querystring_authentication(self):
+        adapter = self.make_adapter(
+            'TEST_ID', 'TEST_SECRET', 'test-bucket', use_query_auth=True
+        )
+        (
+            flexmock(adapter.connection)
+            .should_receive('generate_url')
+            .with_args(
+                3600,
+                'GET',
+                bucket='test-bucket',
+                key='README.rst',
+                query_auth=True
+            )
+            .and_return(
+                'https://unistorage-test.s3.amazonaws.com/README.rst?'
+                'Signature=U48%2FMdDwr1Kh%2BKFUtEcoqZ%2BHU7g%3D&'
+                'Expires=1350217181&'
+                'AWSAccessKeyId=TEST_ID'
+            )
+            .once()
+        )
+        url = adapter.url('README.rst')
+        assert (
+            url ==
+            'https://unistorage-test.s3.amazonaws.com/README.rst?'
+            'Signature=U48%2FMdDwr1Kh%2BKFUtEcoqZ%2BHU7g%3D&'
+            'Expires=1350217181&'
+            'AWSAccessKeyId=TEST_ID'
+        )

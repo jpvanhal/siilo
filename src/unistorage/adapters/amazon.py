@@ -9,6 +9,9 @@
     :license: BSD, see LICENSE for more details.
 """
 
+from datetime import datetime, timedelta
+from email.utils import parsedate_tz
+
 from unistorage.exceptions import FileNotFound
 from unistorage.interface import Adapter
 
@@ -23,19 +26,37 @@ class AmazonS3(Adapter):
         pip install boto
 
     .. _boto: https://github.com/boto/boto
+
+    Constructor arguments are as follows:
+
+    :type access_key: str
+    :param access_key: your Amazon Web Services access key id
+
+    :type secret_key: str
+    :param secret_key: your Amazon Web Services secret access key
+
+    :type bucket_name: str
+    :param bucket_name: your Amazon S3 bucket name
+
+    :type use_query_auth: bool
+    :param use_query_auth: :method:`url` should use query string
+        authentication to sign the URL. This is useful for enabling
+        direct access to private Amazon S3 data without proxying the
+        request. Defaults to ``True``.
+
+    :type querystring_expires: int
+    :param querystring_expires: The number of seconds a URL signed with
+        query string authentication is valid before expiring. Defaults
+        to 3600 (one hour).
     """
 
-    def __init__(self, access_key, secret_key, bucket_name):
-        """
-        Construct a Amazon S3 adapter.
-
-        :param access_key: your Amazon Web Services access key id
-        :param secret_key: your Amazon Web Services secret access key
-        :param bucket_name: your Amazon S3 bucket name as a string
-        """
+    def __init__(self, access_key, secret_key, bucket_name,
+                 use_query_auth=True, querystring_expires=3600):
         boto = self._import_boto()
         self.connection = boto.connect_s3(access_key, secret_key)
         self.bucket_name = bucket_name
+        self.use_query_auth = use_query_auth
+        self.querystring_expires = querystring_expires
 
     @property
     def bucket(self):
@@ -106,3 +127,19 @@ class AmazonS3(Adapter):
     def list(self):
         for key in self.bucket.list():
             yield key.name
+
+    def modified(self, name):
+        key = self.bucket.get_key(name)
+        if not key:
+            raise FileNotFound(name)
+        t = parsedate_tz(key.last_modified)
+        return datetime(*t[:7]) - timedelta(seconds=t[-1])
+
+    def url(self, name):
+        return self.connection.generate_url(
+            expires_in=self.querystring_expires,
+            method='GET',
+            bucket=self.bucket_name,
+            key=name,
+            query_auth=self.use_query_auth
+        )
