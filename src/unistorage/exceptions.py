@@ -34,14 +34,6 @@ class FileNotFound(UnistorageException):
         return 'The file "%s" was not found.' % self.name
 
 
-class FileExistsError(UnistorageException):
-    """The file already existed."""
-
-
-class PermissionError(UnistorageException):
-    pass
-
-
 @unicode_compatible
 class SuspiciousFilename(UnistorageException):
     """
