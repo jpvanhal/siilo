@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flexmock import flexmock
 import pytest
 
@@ -36,7 +38,7 @@ class TestStorage(object):
         storage = make_storage(adapter)
         assert storage.adapter is adapter
 
-    def test_contains_returns_false_if_key_doesnt_exist(self):
+    def test_contains_returns_false_if_file_doesnt_exist(self):
         storage = make_storage_with_fake_adapter()
         (
             storage.adapter
@@ -47,7 +49,7 @@ class TestStorage(object):
         )
         assert 'README.rst' not in storage
 
-    def test_contains_returns_true_if_key_exists(self):
+    def test_contains_returns_true_if_file_exists(self):
         storage = make_storage_with_fake_adapter()
         (
             storage.adapter
@@ -58,7 +60,7 @@ class TestStorage(object):
         )
         assert 'README.rst' in storage
 
-    def test_getitem_returns_a_file_with_the_given_key(self):
+    def test_getitem_returns_a_file_with_the_given_name(self):
         from unistorage import core
         storage = make_storage_with_fake_adapter()
         fake_file = flexmock()
@@ -79,12 +81,12 @@ class TestFile(object):
         file_ = make_file(storage, 'README.rst')
         assert file_.storage is storage
 
-    def test_constructor_sets_key(self):
+    def test_constructor_sets_filename(self):
         storage = flexmock()
         file_ = make_file(storage, 'README.rst')
-        assert file_.key == 'README.rst'
+        assert file_.name == 'README.rst'
 
-    def test_exists_returns_false_if_key_doesnt_exist(self):
+    def test_exists_returns_false_if_file_doesnt_exist(self):
         storage = make_storage_with_fake_adapter()
         file_ = make_file(storage, 'README.rst')
         (
@@ -96,7 +98,7 @@ class TestFile(object):
         )
         assert not file_.exists
 
-    def test_exists_returns_true_if_key_exists(self):
+    def test_exists_returns_true_if_file_exists(self):
         storage = make_storage_with_fake_adapter()
         file_ = make_file(storage, 'README.rst')
         (
@@ -107,3 +109,100 @@ class TestFile(object):
             .once()
         )
         assert file_.exists
+
+    def test_size_returns_file_size(self):
+        storage = make_storage_with_fake_adapter()
+        file_ = make_file(storage, 'README.rst')
+        (
+            flexmock(storage.adapter)
+            .should_receive('size')
+            .with_args('README.rst')
+            .and_return(42)
+            .once()
+        )
+        assert file_.size == 42
+
+    def test_getting_content_delegates_to_adapter(self):
+        storage = make_storage_with_fake_adapter()
+        file_ = make_file(storage, 'README.rst')
+        (
+            flexmock(storage.adapter)
+            .should_receive('read')
+            .with_args('README.rst')
+            .and_return('This is a readme.')
+            .once()
+        )
+        assert file_.content == 'This is a readme.'
+
+    def test_setting_content_delegates_to_adapter(self):
+        storage = make_storage_with_fake_adapter()
+        file_ = make_file(storage, 'README.rst')
+        (
+            flexmock(storage.adapter)
+            .should_receive('write')
+            .with_args('README.rst', 'This is a readme.')
+            .once()
+        )
+        file_.content = 'This is a readme.'
+
+    def test_url_delegates_to_adapter(self):
+        storage = make_storage_with_fake_adapter()
+        file_ = make_file(storage, 'README.rst')
+        (
+            flexmock(storage.adapter)
+            .should_receive('url')
+            .with_args('README.rst')
+            .and_return('http://static.example.com/README.rst')
+            .once()
+        )
+        assert file_.url == 'http://static.example.com/README.rst'
+
+    def test_delete_delegates_to_adapter(self):
+        storage = make_storage_with_fake_adapter()
+        file_ = make_file(storage, 'README.rst')
+        (
+            flexmock(storage.adapter)
+            .should_receive('delete')
+            .with_args('README.rst')
+            .once()
+        )
+        file_.delete()
+
+    def test_accessed_delegates_to_adapter(self):
+        storage = make_storage_with_fake_adapter()
+        accessed = datetime.utcnow()
+        file_ = make_file(storage, 'README.rst')
+        (
+            flexmock(storage.adapter)
+            .should_receive('accessed')
+            .with_args('README.rst')
+            .and_return(accessed)
+            .once()
+        )
+        assert file_.accessed is accessed
+
+    def test_created_delegates_to_adapter(self):
+        storage = make_storage_with_fake_adapter()
+        created = datetime.utcnow()
+        file_ = make_file(storage, 'README.rst')
+        (
+            flexmock(storage.adapter)
+            .should_receive('created')
+            .with_args('README.rst')
+            .and_return(created)
+            .once()
+        )
+        assert file_.created is created
+
+    def test_modified_delegates_to_adapter(self):
+        storage = make_storage_with_fake_adapter()
+        modified = datetime.utcnow()
+        file_ = make_file(storage, 'README.rst')
+        (
+            flexmock(storage.adapter)
+            .should_receive('modified')
+            .with_args('README.rst')
+            .and_return(modified)
+            .once()
+        )
+        assert file_.modified is modified
