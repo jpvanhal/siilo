@@ -9,15 +9,14 @@
 
 import sys
 
-is_py2 = sys.version_info[0] == 2
-is_py3 = sys.version_info[0] == 3
+is_py3 = sys.version_info[0] > 2
 
-if is_py2:
-    binary_type = str
-    text_type = unicode
-elif is_py3:
+if is_py3:
     binary_type = bytes
     text_type = str
+else:
+    binary_type = str
+    text_type = unicode
 
 
 def force_text(s, encoding='utf-8'):
@@ -37,7 +36,7 @@ def unicode_compatible(cls):
     A decorator that defines ``__str__`` and ``__unicode__`` methods
     under Python 2.
     """
-    if is_py2:
+    if not is_py3:
         cls.__unicode__ = cls.__str__
         cls.__str__ = lambda self: self.__unicode__().encode('utf-8')
     return cls
