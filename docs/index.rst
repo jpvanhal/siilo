@@ -1,27 +1,14 @@
+==========
 Unistorage
 ==========
 
-Installation
-------------
+.. toctree::
+   :maxdepth: 2
 
-The easiest way to install Unistorage is with pip::
-
-    pip install Unistorage
-
-
-API reference
--------------
-
-.. module:: unistorage
-
-This part of the documentation covers all the public classes and functions
-in Unistorage.
-
-
-.. include:: ../CHANGES.rst
-
-
-License
--------
-
-.. include:: ../LICENSE
+   installation.rst
+   quickstart.rst
+   adapters.rst
+   api.rst
+   development.rst
+   changelog.rst
+   license.rst
