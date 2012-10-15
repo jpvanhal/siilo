@@ -32,21 +32,21 @@ Create a file:
 
 .. code-block:: python
 
-    >>> file = storage['hello.txt']
-    >>> file.content = 'Hello world!'
+    >>> hello = storage['hello.txt']
+    >>> hello.content = 'Hello world!'
 
 Get a public URL to the file:
 
 .. code-block:: python
 
-    >>> file.url
+    >>> hello.url
     'https://unistorage-test.s3.amazonaws.com/hello.txt?Signature=...'
 
 Delete the file:
 
 .. code-block:: python
 
-    >>> file.delete()
+    >>> hello.delete()
 
 Installation
 ------------
