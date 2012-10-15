@@ -39,8 +39,8 @@ Get a public URL to the file:
 
 .. code-block:: python
 
-    >>> print file.url
-    https://unistorage-test.s3.amazonaws.com/hello.txt?Signature=...
+    >>> file.url
+    'https://unistorage-test.s3.amazonaws.com/hello.txt?Signature=...'
 
 Delete the file:
 
