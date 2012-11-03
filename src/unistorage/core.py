@@ -34,17 +34,31 @@ class File(object):
         self.storage = storage
         self.name = name
 
+    def __repr__(self):
+        return '<File %s>' % self.name
+
+    def __bool__(self):
+        return self.exists
+
+    def __nonzero__(self):
+        return self.exists
+
     @property
     def accessed(self):
         return self.storage.adapter.accessed(self.name)
 
     @property
     def content(self):
+        """Content of the file, in bytes."""
         return self.storage.adapter.read(self.name)
 
     @content.setter
     def content(self, value):
         self.storage.adapter.write(self.name, value)
+
+    @property
+    def text(self):
+        """Content of the file, in unicode."""
 
     @property
     def created(self):
