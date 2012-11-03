@@ -75,7 +75,7 @@ class FunctionalTestCase(object):
             difference = now - self.adapter.modified('README.rst')
         except NotImplementedError:
             pytest.skip("not implemented in this adapter")
-        assert difference < datetime.timedelta(seconds=1)
+        assert difference < datetime.timedelta(seconds=60)
 
     def test_list_is_a_generator(self):
         assert isinstance(self.adapter.list(), types.GeneratorType)
