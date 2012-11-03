@@ -45,7 +45,9 @@ script::
 Checking the installation
 -------------------------
 
-To check that Unistorage has been properly installed, type ``python`` from your shell. Then at the Python prompt, try to import Unistorage, and check the installed version:
+To check that Unistorage has been properly installed, type ``python``
+from your shell. Then at the Python prompt, try to import Unistorage,
+and check the installed version:
 
 .. parsed-literal::
 
