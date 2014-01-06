@@ -5,7 +5,7 @@
 
     This module an adapter for Amazon Simple Storage Service (S3).
 
-    :copyright: (c) 2012 by Janne Vanhala.
+    :copyright: (c) 2014 by Janne Vanhala.
     :license: BSD, see LICENSE for more details.
 """
 
