@@ -3,7 +3,7 @@ import types
 
 import pytest
 
-from unistorage.exceptions import FileNotFound
+from silo.exceptions import FileNotFound
 
 
 @pytest.mark.functional

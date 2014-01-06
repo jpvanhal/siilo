@@ -5,12 +5,12 @@ import pytest
 
 
 def get_storage_class():
-    from unistorage.core import Storage
+    from silo.core import Storage
     return Storage
 
 
 def get_file_class():
-    from unistorage.core import File
+    from silo.core import File
     return File
 
 
@@ -61,7 +61,7 @@ class TestStorage(object):
         assert 'README.rst' in storage
 
     def test_getitem_returns_a_file_with_the_given_name(self):
-        from unistorage import core
+        from silo import core
         storage = make_storage_with_fake_adapter()
         fake_file = flexmock()
         (

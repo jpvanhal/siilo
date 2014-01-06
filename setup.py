@@ -7,14 +7,14 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 
 def get_version():
-    filename = os.path.join(HERE, 'src', 'unistorage', '__init__.py')
+    filename = os.path.join(HERE, 'src', 'silo', '__init__.py')
     contents = open(filename).read()
     pattern = r"^__version__ = '(.*?)'$"
     return re.search(pattern, contents, re.MULTILINE).group(1)
 
 
 setup(
-    name='Unistorage',
+    name='Silo',
     version=get_version(),
     description='File storage abstraction layer',
     long_description=(
@@ -23,10 +23,10 @@ setup(
     ),
     author='Janne Vanhala',
     author_email='janne.vanhala@gmail.com',
-    url='http://github.com/jpvanhal/unistorage',
+    url='http://github.com/jpvanhal/silo',
     packages=[
-        'unistorage',
-        'unistorage.adapters',
+        'silo',
+        'silo.adapters',
     ],
     package_data={
         '': ['LICENSE']

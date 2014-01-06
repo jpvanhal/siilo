@@ -3,7 +3,7 @@ from datetime import datetime
 from flexmock import flexmock
 import pytest
 
-from unistorage.exceptions import FileNotFound
+from silo.exceptions import FileNotFound
 
 
 @pytest.mark.unit
@@ -12,7 +12,7 @@ class TestAmazonS3(object):
         pytest.importorskip("boto")
 
     def get_adapter_class(self):
-        from unistorage.adapters.amazon import AmazonS3
+        from silo.adapters.amazon import AmazonS3
         return AmazonS3
 
     def make_adapter(self, *args, **kwargs):
@@ -326,11 +326,11 @@ class TestAmazonS3(object):
                 key='README.rst',
                 query_auth=False
             )
-            .and_return('https://unistorage-test.s3.amazonaws.com/README.rst')
+            .and_return('https://silo-test.s3.amazonaws.com/README.rst')
             .once()
         )
         url = adapter.url('README.rst')
-        assert url == 'https://unistorage-test.s3.amazonaws.com/README.rst'
+        assert url == 'https://silo-test.s3.amazonaws.com/README.rst'
 
     def test_url_with_querystring_authentication(self):
         adapter = self.make_adapter(
@@ -347,7 +347,7 @@ class TestAmazonS3(object):
                 query_auth=True
             )
             .and_return(
-                'https://unistorage-test.s3.amazonaws.com/README.rst?'
+                'https://silo-test.s3.amazonaws.com/README.rst?'
                 'Signature=U48%2FMdDwr1Kh%2BKFUtEcoqZ%2BHU7g%3D&'
                 'Expires=1350217181&'
                 'AWSAccessKeyId=TEST_ID'
@@ -357,7 +357,7 @@ class TestAmazonS3(object):
         url = adapter.url('README.rst')
         assert (
             url ==
-            'https://unistorage-test.s3.amazonaws.com/README.rst?'
+            'https://silo-test.s3.amazonaws.com/README.rst?'
             'Signature=U48%2FMdDwr1Kh%2BKFUtEcoqZ%2BHU7g%3D&'
             'Expires=1350217181&'
             'AWSAccessKeyId=TEST_ID'

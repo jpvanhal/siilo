@@ -1,41 +1,41 @@
 API reference
 =============
 
-.. module:: unistorage
+.. module:: silo
 
 This part of the documentation covers all the public classes and functions
-in Unistorage.
+in Silo.
 
 
 Core
 ----
 
-.. module:: unistorage.core
+.. module:: silo.core
 .. autoclass:: Storage
 .. autoclass:: File
 
 Adapters
 --------
 
-.. module:: unistorage.adapters.amazon
+.. module:: silo.adapters.amazon
 .. autoclass:: AmazonS3
 
-.. module:: unistorage.adapters.local
+.. module:: silo.adapters.local
 .. autoclass:: Local
 
-.. module:: unistorage.adapters.memory
+.. module:: silo.adapters.memory
 .. autoclass:: Memory
 
 Exceptions
 ----------
 
-.. module:: unistorage.exceptions
-.. autoclass:: UnistorageException
+.. module:: silo.exceptions
+.. autoclass:: SiloException
 .. autoclass:: FileNotFound
 .. autoclass:: SuspiciousFilename
 
 Interface
 ---------
 
-.. module:: unistorage.interface
+.. module:: silo.interface
 .. autoclass:: Adapter

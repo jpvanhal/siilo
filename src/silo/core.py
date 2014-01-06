@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-    unistorage.core
-    ~~~~~~~~~~~~~~~
+    silo.core
+    ~~~~~~~~~
 
-    This module contains the core API for Unistorage.
+    This module contains the core API for Silo.
 
     :copyright: (c) 2012 by Janne Vanhala.
     :license: BSD, see LICENSE for more details.

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-    unistorage.exceptions
-    ~~~~~~~~~~~~~~~~~~~~~
+    silo.exceptions
+    ~~~~~~~~~~~~~~~
 
-    This module contains Unistorage-specific exceptions.
+    This module contains Silo-specific exceptions.
 
     :copyright: (c) 2012 by Janne Vanhala.
     :license: BSD, see LICENSE for more details.
@@ -14,14 +14,14 @@ from __future__ import unicode_literals
 from .compat import force_text, unicode_compatible
 
 
-class UnistorageException(Exception):
+class SiloException(Exception):
     """
-    Base class for all Unistorage exceptions.
+    Base class for all Silo exceptions.
     """
 
 
 @unicode_compatible
-class FileNotFound(UnistorageException):
+class FileNotFound(SiloException):
     """
     Raised when attempting to access a file that does not exist.
 
@@ -35,12 +35,12 @@ class FileNotFound(UnistorageException):
 
 
 @unicode_compatible
-class SuspiciousFilename(UnistorageException):
+class SuspiciousFilename(SiloException):
     """
     Raised when a suspicious filename is supplied to an adapter.
 
     This error can occur when using the
-    :class:`unistorage.adapters.local.Local` adapter and the filename is
+    :class:`silo.adapters.local.Local` adapter and the filename is
     not within the base directory.
 
     :param name: name of the file

@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from unistorage.compat import text_type, force_bytes, force_text
+from silo.compat import text_type, force_bytes, force_text
 
 
 @pytest.mark.unit
 class TestFileNotFound(object):
     @staticmethod
     def make_exception(*args, **kwargs):
-        from unistorage.exceptions import FileNotFound
+        from silo.exceptions import FileNotFound
         return FileNotFound(*args, **kwargs)
 
     def test_constructor_sets_name(self):
@@ -26,17 +26,17 @@ class TestFileNotFound(object):
         exc = self.make_exception(force_bytes('Äö'))
         assert text_type(exc) == force_text('The file "Äö" was not found.')
 
-    def test_is_unistorage_exception(self):
-        from unistorage.exceptions import UnistorageException
+    def test_is_silo_exception(self):
+        from silo.exceptions import SiloException
         exc = self.make_exception('README.rst')
-        assert isinstance(exc, UnistorageException)
+        assert isinstance(exc, SiloException)
 
 
 @pytest.mark.unit
 class TestSuspiciousFilename(object):
     @staticmethod
     def make_exception(*args, **kwargs):
-        from unistorage.exceptions import SuspiciousFilename
+        from silo.exceptions import SuspiciousFilename
         return SuspiciousFilename(*args, **kwargs)
 
     def test_constructor_sets_name(self):
@@ -57,7 +57,7 @@ class TestSuspiciousFilename(object):
             force_text('The file "../Äö" is not within the storage.')
         )
 
-    def test_is_unistorage_exception(self):
-        from unistorage.exceptions import UnistorageException
+    def test_is_silo_exception(self):
+        from silo.exceptions import SiloException
         exc = self.make_exception('../etc/passwd')
-        assert isinstance(exc, UnistorageException)
+        assert isinstance(exc, SiloException)

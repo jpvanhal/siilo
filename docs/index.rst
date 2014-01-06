@@ -1,6 +1,6 @@
-==========
-Unistorage
-==========
+====
+Silo
+====
 
 .. toctree::
    :maxdepth: 2

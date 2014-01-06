@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    unistorage.adapters.amazon
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    silo.adapters.amazon
+    ~~~~~~~~~~~~~~~~~~~~
 
     This module an adapter for Amazon Simple Storage Service (S3).
 
@@ -12,8 +12,8 @@
 from datetime import datetime, timedelta
 from email.utils import parsedate_tz
 
-from unistorage.exceptions import FileNotFound
-from unistorage.interface import Adapter
+from silo.exceptions import FileNotFound
+from silo.interface import Adapter
 
 
 class AmazonS3(Adapter):

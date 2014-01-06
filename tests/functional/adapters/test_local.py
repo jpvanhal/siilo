@@ -6,8 +6,8 @@ from .lib import FunctionalTestCase
 
 class TestLocal(FunctionalTestCase):
     def make_adapter(self):
-        from unistorage.adapters.local import Local
-        return Local(directory=tempfile.mkdtemp('unistorage-test'))
+        from silo.adapters.local import Local
+        return Local(directory=tempfile.mkdtemp('silo-test'))
 
     def teardown_method(self, method):
         shutil.rmtree(self.adapter.directory)

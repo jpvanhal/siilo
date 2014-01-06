@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Unistorage documentation build configuration file, created by
+# Silo documentation build configuration file, created by
 # sphinx-quickstart on Thu Aug 16 19:55:05 2012.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -45,7 +45,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Unistorage'
+project = u'Silo'
 copyright = u'2012, Janne Vanhala'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -53,7 +53,7 @@ copyright = u'2012, Janne Vanhala'
 # built documents.
 #
 # The short X.Y version.
-version =  __import__('pkg_resources').get_distribution('unistorage').version
+version =  __import__('pkg_resources').get_distribution('silo').version
 # The full version, including alpha/beta/rc tags.
 release = version
 
@@ -169,7 +169,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'Unistoragedoc'
+htmlhelp_basename = 'Silodoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -188,7 +188,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'Unistorage.tex', u'Unistorage Documentation',
+  ('index', 'Silo.tex', u'Silo Documentation',
    u'Janne Vanhala', 'manual'),
 ]
 
@@ -218,7 +218,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'unistorage', u'Unistorage Documentation',
+    ('index', 'silo', u'Silo Documentation',
      [u'Janne Vanhala'], 1)
 ]
 
@@ -232,8 +232,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'Unistorage', u'Unistorage Documentation',
-   u'Janne Vanhala', 'Unistorage', 'One line description of project.',
+  ('index', 'Silo', u'Silo Documentation',
+   u'Janne Vanhala', 'Silo', 'One line description of project.',
    'Miscellaneous'),
 ]
 

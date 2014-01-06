@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-    unistorage.adapters.memory
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    silo.adapters.memory
+    ~~~~~~~~~~~~~~~~~~~~
 
     :copyright: (c) 2012 by Janne Vanhala.
     :license: BSD, see LICENSE for more details.
 """
 
-from unistorage.exceptions import FileNotFound
-from unistorage.interface import Adapter
+from silo.exceptions import FileNotFound
+from silo.interface import Adapter
 
 
 class Memory(Adapter):

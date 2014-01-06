@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    unistorage
-    ~~~~~~~~~~
+    silo
+    ~~~~
 
     :copyright: (c) 2012 by Janne Vanhala.
     :license: BSD, see LICENSE for more details.

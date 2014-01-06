@@ -3,13 +3,13 @@ import os
 import pytest
 from flexmock import flexmock
 
-from unistorage.exceptions import SuspiciousFilename
+from silo.exceptions import SuspiciousFilename
 
 
 @pytest.mark.unit
 class TestLocal(object):
     def get_adapter_class(self):
-        from unistorage.adapters.local import Local
+        from silo.adapters.local import Local
         return Local
 
     def make_adapter(self, *args, **kwargs):

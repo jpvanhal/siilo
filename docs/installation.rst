@@ -1,12 +1,12 @@
 Installation
 ============
 
-This part of the documentation covers the installation of Unistorage.
+This part of the documentation covers the installation of Silo.
 
 Supported platforms
 -------------------
 
-Unistorage has been tested against the following Python platforms.
+Silo has been tested against the following Python platforms.
 
 - cPython 2.6
 - cPython 2.7
@@ -19,25 +19,25 @@ Unistorage has been tested against the following Python platforms.
 Installing an official release
 ------------------------------
 
-You can install the most recent official Unistorage version using
+You can install the most recent official Silo version using
 pip_::
 
-    pip install unistorage
+    pip install silo
 
 .. _pip: http://www.pip-installer.org/
 
 Installing the development version
 ----------------------------------
 
-To install the latest version of Unistorage, you need first obtain a
+To install the latest version of Silo, you need first obtain a
 copy of the source. You can do that by cloning the git_ repository::
 
-    git clone git://github.com/jpvanhal/unistorage.git
+    git clone git://github.com/jpvanhal/silo.git
 
 Then you can install the source distribution using the ``setup.py``
 script::
 
-    cd unistorage
+    cd silo
     python setup.py install
 
 .. _git: http://git-scm.org/
@@ -45,12 +45,12 @@ script::
 Checking the installation
 -------------------------
 
-To check that Unistorage has been properly installed, type ``python``
-from your shell. Then at the Python prompt, try to import Unistorage,
+To check that Silo has been properly installed, type ``python``
+from your shell. Then at the Python prompt, try to import Silo,
 and check the installed version:
 
 .. parsed-literal::
 
-    >>> import unistorage
-    >>> unistorage.__version__
+    >>> import silo
+    >>> silo.__version__
     |release|

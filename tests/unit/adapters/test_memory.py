@@ -3,13 +3,13 @@ import os
 import pytest
 from flexmock import flexmock
 
-from unistorage.exceptions import FileNotFound
+from silo.exceptions import FileNotFound
 
 
 @pytest.mark.unit
 class TestMemory(object):
     def get_adapter_class(self):
-        from unistorage.adapters.memory import Memory
+        from silo.adapters.memory import Memory
         return Memory
 
     def make_adapter(self, *args, **kwargs):

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    unistorage.adapters.local
-    ~~~~~~~~~~~~~~~~~~~~~~~~~
+    silo.adapters.local
+    ~~~~~~~~~~~~~~~~~~~
 
     :copyright: (c) 2012 by Janne Vanhala.
     :license: BSD, see LICENSE for more details.
@@ -12,8 +12,8 @@ from functools import wraps
 import errno
 import os
 
-from unistorage.exceptions import FileNotFound, SuspiciousFilename
-from unistorage.interface import Adapter
+from silo.exceptions import FileNotFound, SuspiciousFilename
+from silo.interface import Adapter
 
 
 def assert_exists(fn):

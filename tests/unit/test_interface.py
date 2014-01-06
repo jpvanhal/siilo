@@ -2,7 +2,7 @@ import pytest
 
 
 def get_adapter_class():
-    from unistorage.interface import Adapter
+    from silo.interface import Adapter
     return Adapter
 
 

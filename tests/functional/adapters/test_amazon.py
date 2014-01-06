@@ -9,7 +9,7 @@ from .lib import FunctionalTestCase
 
 class TestAmazonS3(FunctionalTestCase):
     def make_adapter(self):
-        from unistorage.adapters.amazon import AmazonS3
+        from silo.adapters.amazon import AmazonS3
 
         pytest.importorskip("boto")
 
@@ -22,7 +22,7 @@ class TestAmazonS3(FunctionalTestCase):
         adapter = AmazonS3(
             access_key=access_key,
             secret_key=secret_key,
-            bucket_name='unistorage-test-%s' % uuid.uuid4()
+            bucket_name='silo-test-%s' % uuid.uuid4()
         )
 
         self._ensure_bucket_exists(adapter)
@@ -47,7 +47,7 @@ class TestAmazonS3(FunctionalTestCase):
         method works around the problem by blocking until the bucket
         truly exists.
 
-        :param adapter: a :class:`unistorage.adapters.amazon.AmazonS3` instance
+        :param adapter: a :class:`silo.adapters.amazon.AmazonS3` instance
         """
         from boto.exception import S3ResponseError
 
