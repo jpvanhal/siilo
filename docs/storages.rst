@@ -1,4 +1,4 @@
-Adapters
+Storages
 ========
 
 Amazon S3

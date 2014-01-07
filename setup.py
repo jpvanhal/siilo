@@ -26,7 +26,7 @@ setup(
     url='http://github.com/jpvanhal/silo',
     packages=[
         'silo',
-        'silo.adapters',
+        'silo.storages',
     ],
     package_data={
         '': ['LICENSE']

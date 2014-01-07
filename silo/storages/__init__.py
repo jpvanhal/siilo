@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-    silo.interface
-    ~~~~~~~~~~~~~~
+    silo.storages
+    ~~~~~~~~~~~~~
 
     :copyright: (c) 2014 by Janne Vanhala.
     :license: BSD, see LICENSE for more details.
 """
 
 
-class Adapter(object):
+class Storage(object):
 
     def delete(self, name):
         """

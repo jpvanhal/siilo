@@ -8,8 +8,8 @@ from .lib import FunctionalTestCase
 
 
 class TestAmazonS3(FunctionalTestCase):
-    def make_adapter(self):
-        from silo.adapters.amazon import AmazonS3
+    def make_storage(self):
+        from silo.storages.amazon import AmazonS3
 
         pytest.importorskip("boto")
 
@@ -19,25 +19,25 @@ class TestAmazonS3(FunctionalTestCase):
         except KeyError:
             pytest.skip()
 
-        adapter = AmazonS3(
+        storage = AmazonS3(
             access_key=access_key,
             secret_key=secret_key,
             bucket_name='silo-test-%s' % uuid.uuid4()
         )
 
-        self._ensure_bucket_exists(adapter)
+        self._ensure_bucket_exists(storage)
 
-        return adapter
+        return storage
 
-    def teardown_adapter(self, adapter):
-        bucket = adapter.bucket
+    def teardown_storage(self, storage):
+        bucket = storage.bucket
         for key in bucket.list():
             key.delete()
-        adapter.connection.delete_bucket(bucket.name)
+        storage.connection.delete_bucket(bucket.name)
 
-    def _ensure_bucket_exists(self, adapter):
+    def _ensure_bucket_exists(self, storage):
         """
-        Create the bucket specified in the given adapter, and ensure it
+        Create the bucket specified in the given storage, and ensure it
         exists before returning.
 
         There is sometimes a short delay before the bucket is actually
@@ -47,14 +47,14 @@ class TestAmazonS3(FunctionalTestCase):
         method works around the problem by blocking until the bucket
         truly exists.
 
-        :param adapter: a :class:`silo.adapters.amazon.AmazonS3` instance
+        :param storage: a :class:`silo.storages.amazon.AmazonS3` instance
         """
         from boto.exception import S3ResponseError
 
-        adapter.connection.create_bucket(adapter.bucket_name)
+        storage.connection.create_bucket(storage.bucket_name)
         while True:
             try:
-                adapter.connection.get_bucket(adapter.bucket_name)
+                storage.connection.get_bucket(storage.bucket_name)
             except S3ResponseError as exc:
                 if exc.status != 404:
                     raise

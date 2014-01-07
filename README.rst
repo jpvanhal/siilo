@@ -20,13 +20,12 @@ Initialize a file storage using the Amazon S3 adapter:
 .. code-block:: python
 
     >>> from silo import Storage
-    >>> from silo.adapters import AmazonS3
-    >>> adapter = AmazonS3(
+    >>> from silo.storages.amazon import AmazonS3
+    >>> storage = AmazonS3(
     ...     access_key='YOUR_AWS_ACCESS_KEY_ID',
     ...     secret_key='YOUR_AWS_SECRET_ACCESS_KEY',
     ...     bucket_name='silo-test'
     ... )
-    >>> storage = Storage(adapter)
 
 Create a file:
 

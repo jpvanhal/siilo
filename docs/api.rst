@@ -17,13 +17,13 @@ Core
 Adapters
 --------
 
-.. module:: silo.adapters.amazon
+.. module:: silo.storages.amazon
 .. autoclass:: AmazonS3
 
-.. module:: silo.adapters.local
+.. module:: silo.storages.local
 .. autoclass:: Local
 
-.. module:: silo.adapters.memory
+.. module:: silo.storages.memory
 .. autoclass:: Memory
 
 Exceptions
@@ -33,9 +33,3 @@ Exceptions
 .. autoclass:: SiloException
 .. autoclass:: FileNotFound
 .. autoclass:: SuspiciousFilename
-
-Interface
----------
-
-.. module:: silo.interface
-.. autoclass:: Adapter

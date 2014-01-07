@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-    silo.adapters.amazon
+    silo.storages.amazon
     ~~~~~~~~~~~~~~~~~~~~
 
-    This module an adapter for Amazon Simple Storage Service (S3).
+    This module an storage for Amazon Simple Storage Service (S3).
 
     :copyright: (c) 2014 by Janne Vanhala.
     :license: BSD, see LICENSE for more details.
@@ -13,14 +13,14 @@ from datetime import datetime, timedelta
 from email.utils import parsedate_tz
 
 from silo.exceptions import FileNotFound
-from silo.interface import Adapter
+from . import Storage
 
 
-class AmazonS3(Adapter):
+class AmazonS3(Storage):
     """
-    An adapter for Amazon Simple Storage Service (S3).
+    An storage for Amazon Simple Storage Service (S3).
 
-    This adapter requires an boto_ library to be installed. You can
+    This storage requires an boto_ library to be installed. You can
     install it by executing the following command in the terminal::
 
         pip install boto
@@ -95,7 +95,7 @@ class AmazonS3(Adapter):
             import boto
         except ImportError:
             raise RuntimeError(
-                'Could not import boto. Amazon S3 adapter requires boto '
+                'Could not import boto. Amazon S3 storage requires boto '
                 'library to be installed. You can install it by executing '
                 '``pip install boto`` in the terminal.'
             )

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    silo.adapters.memory
+    silo.storages.memory
     ~~~~~~~~~~~~~~~~~~~~
 
     :copyright: (c) 2014 by Janne Vanhala.
@@ -8,10 +8,10 @@
 """
 
 from silo.exceptions import FileNotFound
-from silo.interface import Adapter
+from . import Storage
 
 
-class Memory(Adapter):
+class Memory(Storage):
     def __init__(self):
         self._files = {}
 

@@ -7,7 +7,7 @@ Silo
 
    installation.rst
    quickstart.rst
-   adapters.rst
+   storages.rst
    api.rst
    development.rst
    changelog.rst

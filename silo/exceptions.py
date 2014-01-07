@@ -37,10 +37,10 @@ class FileNotFound(SiloException):
 @unicode_compatible
 class SuspiciousFilename(SiloException):
     """
-    Raised when a suspicious filename is supplied to an adapter.
+    Raised when a suspicious filename is supplied to an storage.
 
     This error can occur when using the
-    :class:`silo.adapters.local.Local` adapter and the filename is
+    :class:`silo.storages.local.Local` storage and the filename is
     not within the base directory.
 
     :param name: name of the file

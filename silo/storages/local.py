@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    silo.adapters.local
+    silo.storages.local
     ~~~~~~~~~~~~~~~~~~~
 
     :copyright: (c) 2014 by Janne Vanhala.
@@ -13,7 +13,7 @@ import errno
 import os
 
 from silo.exceptions import FileNotFound, SuspiciousFilename
-from silo.interface import Adapter
+from . import Storage
 
 
 def assert_exists(fn):
@@ -29,9 +29,9 @@ def assert_exists(fn):
     return wrapper
 
 
-class Local(Adapter):
+class Local(Storage):
     """
-    An adapter for the local filesystem.
+    A storage for the local filesystem.
 
     :param directory: the directory where the file storage is located in.
     """
