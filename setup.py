@@ -7,7 +7,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 
 def get_version():
-    filename = os.path.join(HERE, 'src', 'silo', '__init__.py')
+    filename = os.path.join(HERE, 'silo', '__init__.py')
     contents = open(filename).read()
     pattern = r"^__version__ = '(.*?)'$"
     return re.search(pattern, contents, re.MULTILINE).group(1)
@@ -30,9 +30,6 @@ setup(
     ],
     package_data={
         '': ['LICENSE']
-    },
-    package_dir={
-        '': 'src'
     },
     license=open('LICENSE').read(),
     platforms='any',
