@@ -1,9 +1,6 @@
 language: python
 python: 2.7
 env:
-  global:
-    - secure: "BLpKJ5P9aVETMKGXWCQSl2T4nlk9zr/kmLgH7cgE4HGV4zomtLrh1hvh851u\ncvQ605oMsaFPAVyoQPjLfnHtBCXW7HDq67KiYKAwipLWlQ6+r9sopQioZcID\ncG+419YCAbyQEIFqWyzugUtQ7cdB6JJ0g3jmedbTCv1ViGPMkVI=" # AWS_ACCESS_KEY
-    - secure: "tD7AN+s+iiIFzxbaZ1fn0FmCdnwQnp3P/f3os6IEKVENBvHfJBZ0dJ1DKpTa\nw2c0dVpm23iGsrWmZ2ywZjeWg5IE3002eIxJ/MOYqTQQcqt2D+uzEeep087d\nilnHggMatodJZDF3FOUuY68xN7uw467mFusUq61I2yRMcpu5+uY=" # AWS_SECRET_KEY
   matrix:
     - TOX_ENV=lint
     - TOX_ENV=py27

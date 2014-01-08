@@ -17,9 +17,6 @@ Core
 Adapters
 --------
 
-.. module:: silo.storages.amazon
-.. autoclass:: AmazonS3
-
 .. module:: silo.storages.filesystem
 .. autoclass:: FileSystemStorage
 
