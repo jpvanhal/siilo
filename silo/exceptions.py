@@ -14,14 +14,14 @@ from __future__ import unicode_literals
 from .compat import force_text, unicode_compatible
 
 
-class SiloException(Exception):
+class SiloError(Exception):
     """
     Base class for all Silo exceptions.
     """
 
 
 @unicode_compatible
-class FileNotFound(SiloException):
+class FileNotFound(SiloError):
     """
     Raised when attempting to access a file that does not exist.
 
@@ -31,11 +31,11 @@ class FileNotFound(SiloException):
         self.name = force_text(name, 'utf-8')
 
     def __str__(self):
-        return 'The file "%s" was not found.' % self.name
+        return 'The file "{name}" was not found.'.format(name=self.name)
 
 
 @unicode_compatible
-class FileNotWithinStorage(SiloException):
+class FileNotWithinStorage(SiloError):
     """
     Raised when a suspicious filename is supplied to an storage.
 
@@ -50,4 +50,6 @@ class FileNotWithinStorage(SiloException):
         self.name = force_text(name, 'utf-8')
 
     def __str__(self):
-        return 'The file "%s" is not within the storage.' % self.name
+        return 'The file "{name}" is not within the storage.'.format(
+            name=self.name
+        )

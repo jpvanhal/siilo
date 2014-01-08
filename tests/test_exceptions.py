@@ -1,59 +1,45 @@
 # -*- coding: utf-8 -*-
+import pytest
+
 from silo.compat import text_type, force_bytes, force_text
+from silo.exceptions import FileNotFound, FileNotWithinStorage, SiloError
 
 
-class TestFileNotFound(object):
-    @staticmethod
-    def make_exception(*args, **kwargs):
-        from silo.exceptions import FileNotFound
-        return FileNotFound(*args, **kwargs)
+@pytest.mark.parametrize(
+    ('cls', 'name', 'message'),
+    [
+        (
+            FileNotFound,
+            'README.rst',
+            'The file "README.rst" was not found.'
+        ),
+        (
+            FileNotFound,
+            force_bytes('Äö'),
+            'The file "Äö" was not found.'
+        ),
+        (
+            FileNotWithinStorage,
+            '/etc/passwd',
+            'The file "/etc/passwd" is not within the storage.'
+        ),
+        (
+            FileNotWithinStorage,
+            force_bytes('../Äö'),
+            'The file "../Äö" is not within the storage.'
+        ),
+    ]
+)
+class TestExceptions(object):
+    @pytest.fixture
+    def exception(self, cls, name, message):
+        return cls(name)
 
-    def test_constructor_sets_name(self):
-        exc = self.make_exception('README.rst')
-        assert exc.name == 'README.rst'
+    def test_constructor_sets_name(self, exception, name, message):
+        assert exception.name == force_text(name)
 
-    def test_string_representation(self):
-        exc = self.make_exception('README.rst')
-        assert (
-            text_type(exc) ==
-            force_text('The file "README.rst" was not found.')
-        )
+    def test_string_representation(self, exception, name, message):
+        assert text_type(exception) == force_text(message)
 
-    def test_string_representation_when_name_is_bytes_and_non_ascii(self):
-        exc = self.make_exception(force_bytes('Äö'))
-        assert text_type(exc) == force_text('The file "Äö" was not found.')
-
-    def test_is_silo_exception(self):
-        from silo.exceptions import SiloException
-        exc = self.make_exception('README.rst')
-        assert isinstance(exc, SiloException)
-
-
-class TestFileNotWithinStorage(object):
-    @staticmethod
-    def make_exception(*args, **kwargs):
-        from silo.exceptions import FileNotWithinStorage
-        return FileNotWithinStorage(*args, **kwargs)
-
-    def test_constructor_sets_name(self):
-        exc = self.make_exception('../etc/passwd')
-        assert exc.name == '../etc/passwd'
-
-    def test_string_representation(self):
-        exc = self.make_exception('../etc/passwd')
-        assert (
-            text_type(exc) ==
-            force_text('The file "../etc/passwd" is not within the storage.')
-        )
-
-    def test_string_representation_when_name_is_bytes_and_non_ascii(self):
-        exc = self.make_exception(force_bytes('../Äö'))
-        assert (
-            text_type(exc) ==
-            force_text('The file "../Äö" is not within the storage.')
-        )
-
-    def test_is_silo_exception(self):
-        from silo.exceptions import SiloException
-        exc = self.make_exception('../etc/passwd')
-        assert isinstance(exc, SiloException)
+    def test_is_silo_exception(self, exception, name, message):
+        assert isinstance(exception, SiloError)
