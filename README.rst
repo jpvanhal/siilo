@@ -10,7 +10,6 @@ File storages supported:
 
 - Amazon S3
 - Local file system
-- Memory
 
 Usage
 -----

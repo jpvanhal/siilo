@@ -23,9 +23,6 @@ Adapters
 .. module:: silo.storages.filesystem
 .. autoclass:: FileSystemStorage
 
-.. module:: silo.storages.memory
-.. autoclass:: Memory
-
 Exceptions
 ----------
 
