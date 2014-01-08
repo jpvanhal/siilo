@@ -20,8 +20,8 @@ Adapters
 .. module:: silo.storages.amazon
 .. autoclass:: AmazonS3
 
-.. module:: silo.storages.local
-.. autoclass:: Local
+.. module:: silo.storages.filesystem
+.. autoclass:: FileSystemStorage
 
 .. module:: silo.storages.memory
 .. autoclass:: Memory
@@ -32,4 +32,4 @@ Exceptions
 .. module:: silo.exceptions
 .. autoclass:: SiloException
 .. autoclass:: FileNotFound
-.. autoclass:: SuspiciousFilename
+.. autoclass:: FileNotWithinStorage

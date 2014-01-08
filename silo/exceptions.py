@@ -35,15 +35,16 @@ class FileNotFound(SiloException):
 
 
 @unicode_compatible
-class SuspiciousFilename(SiloException):
+class FileNotWithinStorage(SiloException):
     """
     Raised when a suspicious filename is supplied to an storage.
 
     This error can occur when using the
-    :class:`silo.storages.local.Local` storage and the filename is
-    not within the base directory.
+    :class:`silo.storages.filesystem.FileSystemStorage` storage and the
+    filename is not within the base directory.
 
     :param name: name of the file
+    :type name: str
     """
     def __init__(self, name):
         self.name = force_text(name, 'utf-8')

@@ -33,11 +33,11 @@ class TestFileNotFound(object):
 
 
 @pytest.mark.unit
-class TestSuspiciousFilename(object):
+class TestFileNotWithinStorage(object):
     @staticmethod
     def make_exception(*args, **kwargs):
-        from silo.exceptions import SuspiciousFilename
-        return SuspiciousFilename(*args, **kwargs)
+        from silo.exceptions import FileNotWithinStorage
+        return FileNotWithinStorage(*args, **kwargs)
 
     def test_constructor_sets_name(self):
         exc = self.make_exception('../etc/passwd')
