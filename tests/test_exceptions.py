@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
-import pytest
-
 from silo.compat import text_type, force_bytes, force_text
 
 
-@pytest.mark.unit
 class TestFileNotFound(object):
     @staticmethod
     def make_exception(*args, **kwargs):
@@ -32,7 +29,6 @@ class TestFileNotFound(object):
         assert isinstance(exc, SiloException)
 
 
-@pytest.mark.unit
 class TestFileNotWithinStorage(object):
     @staticmethod
     def make_exception(*args, **kwargs):
