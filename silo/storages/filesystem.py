@@ -12,7 +12,7 @@ import errno
 import os
 
 from silo.exceptions import FileNotFound, FileNotWithinStorage
-from . import Storage
+from .base import Storage
 
 
 def _ensure_file_exists(method):
