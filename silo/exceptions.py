@@ -11,7 +11,7 @@
 
 from __future__ import unicode_literals
 
-from .compat import force_text, unicode_compatible
+from ._compat import force_text, unicode_compatible
 
 
 class SiloError(Exception):

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from silo.compat import text_type, force_bytes, force_text
+from silo._compat import text_type, force_bytes, force_text
 from silo.exceptions import FileNotFound, FileNotWithinStorage, SiloError
 
 
