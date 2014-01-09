@@ -26,6 +26,7 @@ class FileNotFoundError(SiloError):
     Raised when attempting to access a file that does not exist.
 
     :param name: name of the file
+    :type name: str
     """
     def __init__(self, name):
         self.name = force_text(name, 'utf-8')
