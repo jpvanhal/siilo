@@ -37,11 +37,16 @@ class FileNotFoundError(SiloError):
 @unicode_compatible
 class FileNotWithinStorageError(SiloError):
     """
-    Raised when a suspicious filename is supplied to an storage.
+    Raised when a suspicious filename is supplied to a storage.
 
-    This error can occur when using the
-    :class:`silo.storages.filesystem.FileSystemStorage` storage and the
-    filename is not within the base directory.
+    This error occurs when using :class:`.FileSystemStorage` and trying
+    to access a file not within the base directory::
+
+        >>> from silo.storages.filesystem import FileSystemStorage
+        >>> storage = FileSystemStorage(directory='/path/to/storage/root')
+        >>> storage.open('/etc/passwd')
+        Traceback (most recent call last):
+        FileNotWithinStorageError: The file "/etc/passwd" is not within the storage.
 
     :param name: name of the file
     :type name: str
