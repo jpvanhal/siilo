@@ -2,29 +2,33 @@
 import pytest
 
 from silo._compat import text_type, force_bytes, force_text
-from silo.exceptions import FileNotFound, FileNotWithinStorage, SiloError
+from silo.exceptions import (
+    FileNotFoundError,
+    FileNotWithinStorageError,
+    SiloError,
+)
 
 
 @pytest.mark.parametrize(
     ('cls', 'name', 'message'),
     [
         (
-            FileNotFound,
+            FileNotFoundError,
             'README.rst',
             'The file "README.rst" was not found.'
         ),
         (
-            FileNotFound,
+            FileNotFoundError,
             force_bytes('Äö'),
             'The file "Äö" was not found.'
         ),
         (
-            FileNotWithinStorage,
+            FileNotWithinStorageError,
             '/etc/passwd',
             'The file "/etc/passwd" is not within the storage.'
         ),
         (
-            FileNotWithinStorage,
+            FileNotWithinStorageError,
             force_bytes('../Äö'),
             'The file "../Äö" is not within the storage.'
         ),

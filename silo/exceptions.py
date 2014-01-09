@@ -21,7 +21,7 @@ class SiloError(Exception):
 
 
 @unicode_compatible
-class FileNotFound(SiloError):
+class FileNotFoundError(SiloError):
     """
     Raised when attempting to access a file that does not exist.
 
@@ -35,7 +35,7 @@ class FileNotFound(SiloError):
 
 
 @unicode_compatible
-class FileNotWithinStorage(SiloError):
+class FileNotWithinStorageError(SiloError):
     """
     Raised when a suspicious filename is supplied to an storage.
 

@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from silo.exceptions import FileNotFound, FileNotWithinStorage
+from silo.exceptions import FileNotFoundError, FileNotWithinStorageError
 
 
 class TestFileSystemStorage(object):
@@ -24,12 +24,12 @@ class TestFileSystemStorage(object):
         assert not file_.check()
 
     def test_delete_raises_error_if_file_doesnt_exist(self, storage):
-        with pytest.raises(FileNotFound) as excinfo:
+        with pytest.raises(FileNotFoundError) as excinfo:
             storage.delete('foobar')
         assert excinfo.value.name == 'foobar'
 
     def test_delete_raises_error_if_file_not_within_storage(self, storage):
-        with pytest.raises(FileNotWithinStorage) as excinfo:
+        with pytest.raises(FileNotWithinStorageError) as excinfo:
             storage.delete('../foobar')
         assert excinfo.value.name == '../foobar'
 
@@ -41,7 +41,7 @@ class TestFileSystemStorage(object):
         assert storage.exists('foobar') is True
 
     def test_exists_raises_error_if_file_not_within_storage(self, storage):
-        with pytest.raises(FileNotWithinStorage) as excinfo:
+        with pytest.raises(FileNotWithinStorageError) as excinfo:
             storage.exists('../foobar')
         assert excinfo.value.name == '../foobar'
 
@@ -50,12 +50,12 @@ class TestFileSystemStorage(object):
         assert storage.size('foobar') == 5
 
     def test_size_raises_error_if_file_doesnt_exist(self, storage):
-        with pytest.raises(FileNotFound) as excinfo:
+        with pytest.raises(FileNotFoundError) as excinfo:
             storage.size('foobar')
         assert excinfo.value.name == 'foobar'
 
     def test_size_raises_error_if_file_not_within_storage(self, storage):
-        with pytest.raises(FileNotWithinStorage) as excinfo:
+        with pytest.raises(FileNotWithinStorageError) as excinfo:
             storage.size('../foobar')
         assert excinfo.value.name == '../foobar'
 
@@ -73,11 +73,11 @@ class TestFileSystemStorage(object):
         assert file_.mode == 'w'
 
     def test_open_raises_error_if_file_doesnt_exist(self, storage):
-        with pytest.raises(FileNotFound) as excinfo:
+        with pytest.raises(FileNotFoundError) as excinfo:
             storage.open('foobar', 'r')
         assert excinfo.value.name == 'foobar'
 
     def test_open_raises_error_if_file_not_within_storage(self, storage):
-        with pytest.raises(FileNotWithinStorage) as excinfo:
+        with pytest.raises(FileNotWithinStorageError) as excinfo:
             storage.open('../foobar')
         assert excinfo.value.name == '../foobar'

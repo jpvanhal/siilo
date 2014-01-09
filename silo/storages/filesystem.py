@@ -11,7 +11,7 @@ from functools import wraps
 import errno
 import os
 
-from silo.exceptions import FileNotFound, FileNotWithinStorage
+from silo.exceptions import FileNotFoundError, FileNotWithinStorageError
 from .base import Storage
 
 
@@ -22,7 +22,7 @@ def _ensure_file_exists(method):
             return method(self, name, *args, **kwargs)
         except (IOError, OSError) as exc:
             if exc.errno == errno.ENOENT:
-                raise FileNotFound(name)
+                raise FileNotFoundError(name)
             raise
     return wrapper
 
@@ -81,5 +81,5 @@ class FileSystemStorage(Storage):
         """
         path = self._normalize_path(os.path.join(self.directory, name))
         if not path.startswith(self.directory):
-            raise FileNotWithinStorage(name)
+            raise FileNotWithinStorageError(name)
         return path

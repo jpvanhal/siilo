@@ -16,8 +16,8 @@ class Storage(object):
 
         :param name: the name of the file to be deleted
         :type name: str
-        :raises storage.exc.FileNotFoundError: if a file with the given
-          `name` does not exist
+        :raises silo.exceptions.FileNotFoundError: if a file with the
+          given `name` does not exist
         :raises NotImplementedError: if the storage system does not
           support file deletion
         """
@@ -44,8 +44,8 @@ class Storage(object):
         :type name: str
         :param mode: a string indicating how the file should be opened
         :type mode: str
-        :raises storage.exc.FileNotFoundError: if a file with the given
-          `name` does not exist
+        :raises silo.exceptions.FileNotFoundError: if a file with the
+          given `name` does not exist
         """
         raise NotImplementedError
 
@@ -57,8 +57,8 @@ class Storage(object):
         :type name: str
         :return: the size of the file in bytes
         :rtype: int
-        :raises storage.exc.FileNotFoundError: if a file with the given
-          `name` does not exist
+        :raises silo.exceptions.FileNotFoundError: if a file with the
+          given `name` does not exist
         :raises NotImplementedError: if the storage system is not able
           to return the file size
         """
@@ -73,8 +73,8 @@ class Storage(object):
         :type name: str
         :return: the URL where file can be accessed
         :rtype: str
-        :raises storage.exc.FileNotFoundError: if a file with the given
-          `name` does not exist
+        :raises silo.exceptions.FileNotFoundError: if a file with the
+          given `name` does not exist
         :raises NotImplementedError: if the storage system does not
           support access by URL
         """
