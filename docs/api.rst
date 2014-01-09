@@ -7,15 +7,12 @@ This part of the documentation covers all the public classes and functions
 in Silo.
 
 
-Core
-----
-
-.. module:: silo.core
-.. autoclass:: Storage
-.. autoclass:: File
-
-Adapters
+Storages
 --------
+
+.. module:: silo.storages.base
+.. autoclass:: Storage
+   :members:
 
 .. module:: silo.storages.filesystem
 .. autoclass:: FileSystemStorage
@@ -24,6 +21,6 @@ Exceptions
 ----------
 
 .. module:: silo.exceptions
-.. autoclass:: SiloException
-.. autoclass:: FileNotFound
-.. autoclass:: FileNotWithinStorage
+.. autoexception:: SiloError
+.. autoexception:: FileNotFoundError
+.. autoexception:: FileNotWithinStorageError
