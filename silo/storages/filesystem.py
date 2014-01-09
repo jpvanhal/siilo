@@ -9,6 +9,7 @@
 
 from functools import wraps
 import errno
+import io
 import os
 
 from silo.exceptions import FileNotFoundError, FileNotWithinStorageError
@@ -54,7 +55,7 @@ class FileSystemStorage(Storage):
 
     @_ensure_file_exists
     def open(self, name, mode='rb'):
-        return open(self._compute_path(name), mode)
+        return io.open(self._compute_path(name), mode)
 
     @_ensure_file_exists
     def size(self, name):

@@ -1,3 +1,4 @@
+import io
 import os
 
 import pytest
@@ -62,13 +63,13 @@ class TestFileSystemStorage(object):
     def test_open_returns_open_file_with_default_mode(self, storage, tmpdir):
         tmpdir.join('foobar').ensure()
         file_ = storage.open('foobar')
-        assert isinstance(file_, file)
+        assert isinstance(file_, io.IOBase)
         assert file_.name == str(tmpdir.join('foobar'))
         assert file_.mode == 'rb'
 
     def test_open_returns_open_file_with_given_mode(self, storage, tmpdir):
         file_ = storage.open('foobar', 'w')
-        assert isinstance(file_, file)
+        assert isinstance(file_, io.IOBase)
         assert file_.name == str(tmpdir.join('foobar'))
         assert file_.mode == 'w'
 
