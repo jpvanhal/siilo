@@ -47,7 +47,8 @@ class FileNotWithinStorageError(SiloError):
         >>> storage = FileSystemStorage(directory='/path/to/storage/root')
         >>> storage.open('/etc/passwd')
         Traceback (most recent call last):
-        FileNotWithinStorageError: The file "/etc/passwd" is not within the storage.
+        FileNotWithinStorageError: The file "/etc/passwd" is not within
+        the storage.
 
     :param name: name of the file
     :type name: str
