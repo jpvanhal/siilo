@@ -33,6 +33,11 @@ def object_does_not_exist():
     )
 
 
+def test_storage_repr(storage, container):
+    expected = '<ApacheLibcloudStorage container={0!r}>'.format(container)
+    assert repr(storage) == expected
+
+
 def test_delete_removes_the_file(storage, container):
     storage.delete('some_file.txt')
     container.get_object.assert_called_with('some_file.txt')
@@ -318,3 +323,31 @@ def test_can_iterate_over_file(storage, container):
         u'Quick brown fox\n',
         u'jumps over lazy dog',
     ]
+
+
+@pytest.mark.parametrize(
+    ('mode', 'encoding', 'expected_format'),
+    [
+        (
+            'r',
+            'UTF-8',
+            (
+                '<LibcloudFile storage={storage!r}, name={name!r}, '
+                'mode={mode!r}, encoding={encoding!r}>'
+            )
+        ),
+        (
+            'rb',
+            None,
+            '<LibcloudFile storage={storage!r}, name={name!r}, mode={mode!r}>'
+        ),
+    ]
+)
+def test_libcloudfile_repr(storage, mode, encoding, expected_format):
+    with storage.open('some_file.txt', mode, encoding) as file_:
+        assert repr(file_) == expected_format.format(
+            storage=storage,
+            name=file_.name,
+            mode=file_.mode,
+            encoding=encoding
+        )

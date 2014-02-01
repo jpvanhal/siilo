@@ -57,6 +57,11 @@ class ApacheLibcloudStorage(Storage):
         obj = self._get_object(name)
         return obj.get_cdn_url()
 
+    def __repr__(self):
+        return '<ApacheLibcloudStorage container={container!r}>'.format(
+            container=self.container
+        )
+
 
 class LibcloudFile(object):
     def __init__(self, storage, name, mode='r', encoding=None):
@@ -125,6 +130,20 @@ class LibcloudFile(object):
 
     def __iter__(self):
         return iter(self._stream)
+
+    def __repr__(self):
+        args = [
+            ('storage', self.storage),
+            ('name', self.name),
+            ('mode', self.mode),
+        ]
+        if hasattr(self, 'encoding'):
+            args.append(('encoding', self.encoding))
+        args = ', '.join(
+            '{key}={value!r}'.format(key=key, value=value)
+            for key, value in args
+        )
+        return '<LibcloudFile {args}>'.format(args=args)
 
     def _make_temporary_directory(self):
         self._temporary_directory = tempfile.mkdtemp()

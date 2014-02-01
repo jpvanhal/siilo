@@ -12,6 +12,11 @@ def storage(tmpdir):
     return FileSystemStorage(directory=str(tmpdir))
 
 
+def test_storage_repr(storage):
+    expected = '<FileSystemStorage directory={0!r}>'.format(storage.directory)
+    assert repr(storage) == expected
+
+
 def test_constructor_sets_directory(storage, tmpdir):
     assert storage.directory == str(tmpdir)
 

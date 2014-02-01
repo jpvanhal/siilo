@@ -84,3 +84,8 @@ class FileSystemStorage(Storage):
         if not path.startswith(self.directory):
             raise FileNotWithinStorageError(name)
         return path
+
+    def __repr__(self):
+        return '<FileSystemStorage directory={directory!r}>'.format(
+            directory=self.directory
+        )
