@@ -17,6 +17,9 @@ Storages
 .. module:: silo.storages.filesystem
 .. autoclass:: FileSystemStorage
 
+.. module:: silo.storages.apache_libcloud
+.. autoclass:: ApacheLibcloudStorage
+
 Exceptions
 ----------
 

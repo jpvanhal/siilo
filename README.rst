@@ -9,6 +9,7 @@ Silo is a file storage abstraction layer for Python.
 File storages supported:
 
 - Local file system
+- Apache Libcloud
 
 Usage
 -----
