@@ -32,19 +32,20 @@ class FileSystemStorage(Storage):
     """
     A storage for the local filesystem.
 
-    :param directory: the directory where the file storage is located in.
+    :param base_directory: the directory where the file storage is
+        located in.
     :type directory: str
     """
-    def __init__(self, directory):
-        self.directory = directory
+    def __init__(self, base_directory):
+        self.base_directory = base_directory
 
     @property
-    def directory(self):
-        return self._directory
+    def base_directory(self):
+        return self._base_directory
 
-    @directory.setter
-    def directory(self, value):
-        self._directory = self._normalize_path(value)
+    @base_directory.setter
+    def base_directory(self, value):
+        self._base_directory = self._normalize_path(value)
 
     @_ensure_file_exists
     def delete(self, name):
@@ -80,10 +81,10 @@ class FileSystemStorage(Storage):
 
         :param name: the filename for which the to compute the path
         :raises FileNotWithinStorage: if the computed path is not within
-            :attr:`directory`.
+            :attr:`base_directory`.
         """
-        path = self._normalize_path(os.path.join(self.directory, name))
-        if not path.startswith(self.directory):
+        path = self._normalize_path(os.path.join(self.base_directory, name))
+        if not path.startswith(self.base_directory):
             raise FileNotWithinStorageError(name)
         return path
 
@@ -101,6 +102,6 @@ class FileSystemStorage(Storage):
                 raise
 
     def __repr__(self):
-        return '<FileSystemStorage directory={directory!r}>'.format(
-            directory=self.directory
+        return '<FileSystemStorage base_directory={base_directory!r}>'.format(
+            base_directory=self.base_directory
         )

@@ -9,21 +9,23 @@ from silo.exceptions import FileNotFoundError, FileNotWithinStorageError
 @pytest.fixture
 def storage(tmpdir):
     from silo.storages.filesystem import FileSystemStorage
-    return FileSystemStorage(directory=str(tmpdir))
+    return FileSystemStorage(base_directory=str(tmpdir))
 
 
 def test_storage_repr(storage):
-    expected = '<FileSystemStorage directory={0!r}>'.format(storage.directory)
+    expected = '<FileSystemStorage base_directory={0!r}>'.format(
+        storage.base_directory
+    )
     assert repr(storage) == expected
 
 
-def test_constructor_sets_directory(storage, tmpdir):
-    assert storage.directory == str(tmpdir)
+def test_constructor_sets_base_directory(storage, tmpdir):
+    assert storage.base_directory == str(tmpdir)
 
 
-def test_relative_directory_is_normalized(storage):
-    storage.directory = 'foobar'
-    assert storage.directory == os.path.abspath('foobar')
+def test_relative_base_directory_is_normalized(storage):
+    storage.base_directory = 'foobar'
+    assert storage.base_directory == os.path.abspath('foobar')
 
 
 def test_delete_removes_the_file(storage, tmpdir):

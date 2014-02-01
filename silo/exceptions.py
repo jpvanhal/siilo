@@ -44,7 +44,7 @@ class FileNotWithinStorageError(SiloError):
     to access a file not within the base directory::
 
         >>> from silo.storages.filesystem import FileSystemStorage
-        >>> storage = FileSystemStorage(directory='/path/to/storage/root')
+        >>> storage = FileSystemStorage(base_directory='/path/to/storage/root')
         >>> storage.open('/etc/passwd')
         Traceback (most recent call last):
         FileNotWithinStorageError: The file "/etc/passwd" is not within
