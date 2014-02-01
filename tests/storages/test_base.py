@@ -3,7 +3,7 @@ import pytest
 
 @pytest.fixture
 def storage():
-    from silo.storages import Storage
+    from silo.storages.base import Storage
     return Storage()
 
 
