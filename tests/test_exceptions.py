@@ -3,6 +3,7 @@ import pytest
 
 from silo._compat import text_type, force_bytes, force_text
 from silo.exceptions import (
+    FileNotAccessibleViaURL,
     FileNotFoundError,
     FileNotWithinStorageError,
     SiloError,
@@ -12,6 +13,11 @@ from silo.exceptions import (
 @pytest.mark.parametrize(
     ('cls', 'name', 'message'),
     [
+        (
+            FileNotAccessibleViaURL,
+            'README.rst',
+            'The file "README.rst" is not accessible via a URL.'
+        ),
         (
             FileNotFoundError,
             'README.rst',

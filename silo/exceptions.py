@@ -60,3 +60,31 @@ class FileNotWithinStorageError(SiloError):
         return 'The file "{name}" is not within the storage.'.format(
             name=self.name
         )
+
+
+class FileNotAccessibleViaURL(SiloError):
+    """
+    Raised when trying to get a URL for a file that is not accessible
+    via a URL.
+
+    This error occurs when using :class:`.FileSystemStorage`, with no
+    :attr:`.FileSystemStorage.base_url` defined and trying to get a URL
+    for a file::
+
+        >>> from silo.storages.filesystem import FileSystemStorage
+        >>> storage = FileSystemStorage(base_directory='/path/to/storage/root')
+        >>> storage.url('image.jpg')
+        Traceback (most recent call last):
+        FileNotAccessibleViaURL: The file "image.jpg" is not accessible
+        via a URL.
+
+    :param name: name of the file
+    :type name: str
+    """
+    def __init__(self, name):
+        self.name = force_text(name, 'utf-8')
+
+    def __str__(self):
+        return 'The file "{name}" is not accessible via a URL.'.format(
+            name=self.name
+        )

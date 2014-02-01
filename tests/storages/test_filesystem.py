@@ -3,13 +3,20 @@ import os
 
 import pytest
 
-from silo.exceptions import FileNotFoundError, FileNotWithinStorageError
+from silo.exceptions import (
+    FileNotAccessibleViaURL,
+    FileNotFoundError,
+    FileNotWithinStorageError,
+)
 
 
 @pytest.fixture
 def storage(tmpdir):
     from silo.storages.filesystem import FileSystemStorage
-    return FileSystemStorage(base_directory=str(tmpdir))
+    return FileSystemStorage(
+        base_directory=str(tmpdir),
+        base_url='http://www.example.com/'
+    )
 
 
 def test_storage_repr(storage):
@@ -21,6 +28,10 @@ def test_storage_repr(storage):
 
 def test_constructor_sets_base_directory(storage, tmpdir):
     assert storage.base_directory == str(tmpdir)
+
+
+def test_constructor_sets_base_url(storage):
+    assert storage.base_url == 'http://www.example.com/'
 
 
 def test_relative_base_directory_is_normalized(storage):
@@ -127,3 +138,22 @@ def test_open_doesnt_make_path_for_read_modes(storage, tmpdir, mode):
     with pytest.raises(FileNotFoundError):
         storage.open(filename, mode)
     assert not path.exists()
+
+
+@pytest.mark.parametrize(
+    ('name', 'url'),
+    [
+        ('file.txt', 'http://www.example.com/file.txt'),
+        ('dir/file.txt', 'http://www.example.com/dir/file.txt'),
+        ('file name.txt', 'http://www.example.com/file%20name.txt'),
+    ]
+)
+def test_url_returns_url_to_the_file(storage, name, url):
+    assert storage.url(name) == url
+
+
+def test_url_raises_error_if_base_url_not_set(storage):
+    storage.base_url = None
+    with pytest.raises(FileNotAccessibleViaURL) as excinfo:
+        storage.url('file.txt')
+    assert excinfo.value.name == 'file.txt'

@@ -12,7 +12,12 @@ import errno
 import io
 import os
 
-from silo.exceptions import FileNotFoundError, FileNotWithinStorageError
+from .._compat import urljoin, quote
+from silo.exceptions import (
+    FileNotAccessibleViaURL,
+    FileNotFoundError,
+    FileNotWithinStorageError
+)
 from .base import Storage
 
 
@@ -36,8 +41,9 @@ class FileSystemStorage(Storage):
         located in.
     :type directory: str
     """
-    def __init__(self, base_directory):
+    def __init__(self, base_directory, base_url):
         self.base_directory = base_directory
+        self.base_url = base_url
 
     @property
     def base_directory(self):
@@ -63,6 +69,11 @@ class FileSystemStorage(Storage):
     @_ensure_file_exists
     def size(self, name):
         return os.path.getsize(self._compute_path(name))
+
+    def url(self, name):
+        if self.base_url is None:
+            raise FileNotAccessibleViaURL(name)
+        return urljoin(self.base_url, quote(name))
 
     @staticmethod
     def _normalize_path(path):
