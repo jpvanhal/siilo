@@ -73,8 +73,6 @@ class Storage(object):
         :type name: str
         :return: the URL where file can be accessed
         :rtype: str
-        :raises silo.exceptions.FileNotFoundError: if a file with the
-          given `name` does not exist
         :raises NotImplementedError: if the storage system does not
           support access by URL
         """
