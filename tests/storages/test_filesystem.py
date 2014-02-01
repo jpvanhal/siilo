@@ -101,3 +101,27 @@ def test_open_raises_error_if_file_not_within_storage(storage):
     with pytest.raises(FileNotWithinStorageError) as excinfo:
         storage.open('../foobar')
     assert excinfo.value.name == '../foobar'
+
+
+@pytest.mark.parametrize(
+    'mode',
+    ['a', 'a+', 'ab', 'ab+', 'w', 'w+', 'wb', 'wb+']
+)
+def test_open_makes_path_if_it_doesnt_exist(storage, tmpdir, mode):
+    path = tmpdir.join('some', 'dir')
+    filename = str(path.join('foobar'))
+    file_ = storage.open(filename, mode)
+    assert path.exists()
+    assert file_.name == filename
+
+
+@pytest.mark.parametrize(
+    'mode',
+    ['r', 'r+', 'rb', 'r+b']
+)
+def test_open_doesnt_make_path_for_read_modes(storage, tmpdir, mode):
+    path = tmpdir.join('some', 'dir')
+    filename = str(path.join('foobar'))
+    with pytest.raises(FileNotFoundError):
+        storage.open(filename, mode)
+    assert not path.exists()

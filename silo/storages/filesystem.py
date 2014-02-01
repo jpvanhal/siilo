@@ -55,7 +55,9 @@ class FileSystemStorage(Storage):
 
     @_ensure_file_exists
     def open(self, name, mode='rb'):
-        return io.open(self._compute_path(name), mode)
+        path = self._compute_path(name)
+        self._ensure_path_exists_for_write_modes(path, mode)
+        return io.open(path, mode)
 
     @_ensure_file_exists
     def size(self, name):
@@ -84,6 +86,19 @@ class FileSystemStorage(Storage):
         if not path.startswith(self.directory):
             raise FileNotWithinStorageError(name)
         return path
+
+    def _ensure_path_exists_for_write_modes(self, path, mode):
+        base_path = os.path.dirname(path)
+        is_write_mode = 'a' in mode or 'w' in mode
+        if is_write_mode:
+            self._ensure_path_exists(base_path)
+
+    def _ensure_path_exists(self, path):
+        try:
+            os.makedirs(path)
+        except OSError as exc:
+            if exc.errno != errno.EEXIST:
+                raise
 
     def __repr__(self):
         return '<FileSystemStorage directory={directory!r}>'.format(
