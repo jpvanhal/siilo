@@ -4,7 +4,7 @@
     ~~~~
 
     :copyright: (c) 2014 by Janne Vanhala.
-    :license: BSD, see LICENSE for more details.
+    :license: MIT, see LICENSE for more details.
 """
 
 __version__ = '0.1.0-dev'

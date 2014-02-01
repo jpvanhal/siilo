@@ -6,7 +6,7 @@
     This module contains Silo-specific exceptions.
 
     :copyright: (c) 2014 by Janne Vanhala.
-    :license: BSD, see LICENSE for more details.
+    :license: MIT, see LICENSE for more details.
 """
 
 from __future__ import unicode_literals
