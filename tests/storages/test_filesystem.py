@@ -4,7 +4,7 @@ import os
 import pytest
 
 from silo.exceptions import (
-    FileNotAccessibleViaURL,
+    FileNotAccessibleViaURLError,
     FileNotFoundError,
     FileNotWithinStorageError,
 )
@@ -154,6 +154,6 @@ def test_url_returns_url_to_the_file(storage, name, url):
 
 def test_url_raises_error_if_base_url_not_set(storage):
     storage.base_url = None
-    with pytest.raises(FileNotAccessibleViaURL) as excinfo:
+    with pytest.raises(FileNotAccessibleViaURLError) as excinfo:
         storage.url('file.txt')
     assert excinfo.value.name == 'file.txt'

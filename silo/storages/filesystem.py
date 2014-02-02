@@ -14,7 +14,7 @@ import os
 
 from .._compat import urljoin, quote
 from silo.exceptions import (
-    FileNotAccessibleViaURL,
+    FileNotAccessibleViaURLError,
     FileNotFoundError,
     FileNotWithinStorageError
 )
@@ -72,7 +72,7 @@ class FileSystemStorage(Storage):
 
     def url(self, name):
         if self.base_url is None:
-            raise FileNotAccessibleViaURL(name)
+            raise FileNotAccessibleViaURLError(name)
         return urljoin(self.base_url, quote(name))
 
     @staticmethod

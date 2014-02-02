@@ -62,7 +62,7 @@ class FileNotWithinStorageError(SiloError):
         )
 
 
-class FileNotAccessibleViaURL(SiloError):
+class FileNotAccessibleViaURLError(SiloError):
     """
     Raised when trying to get a URL for a file that is not accessible
     via a URL.
@@ -75,7 +75,7 @@ class FileNotAccessibleViaURL(SiloError):
         >>> storage = FileSystemStorage(base_directory='/path/to/storage/root')
         >>> storage.url('image.jpg')
         Traceback (most recent call last):
-        FileNotAccessibleViaURL: The file "image.jpg" is not accessible
+        FileNotAccessibleViaURLError: The file "image.jpg" is not accessible
         via a URL.
 
     :param name: name of the file
