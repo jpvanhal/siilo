@@ -27,3 +27,4 @@ Exceptions
 .. autoexception:: SiloError
 .. autoexception:: FileNotFoundError
 .. autoexception:: FileNotWithinStorageError
+.. autoexception:: FileNotAccessibleViaURLError
