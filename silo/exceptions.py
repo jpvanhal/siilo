@@ -20,6 +20,10 @@ class SiloError(Exception):
     """
 
 
+class ArgumentError(SiloError):
+    pass
+
+
 @unicode_compatible
 class FileNotFoundError(SiloError):
     """

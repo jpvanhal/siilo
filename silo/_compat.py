@@ -9,10 +9,10 @@
 
 import sys
 try:
-    from urlparse import urljoin
+    from urlparse import urljoin, urlunparse
     from urllib import quote
 except ImportError:
-    from urllib.parse import urljoin, quote  # noqa
+    from urllib.parse import urljoin, urlunparse, quote  # noqa
 
 is_py3 = sys.version_info[0] > 2
 
