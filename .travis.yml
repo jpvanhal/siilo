@@ -7,6 +7,9 @@ env:
     - TOX_ENV=pypy
     - TOX_ENV=docs
 install:
+  - pip install coveralls
   - pip install tox
 script:
-  - tox -e $TOX_ENV
+  - tox -e $TOX_ENV -- --cov=silo
+after_success:
+  coveralls
