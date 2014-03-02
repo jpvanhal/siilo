@@ -11,69 +11,61 @@
 class Storage(object):
 
     def delete(self, name):
-        """
-        Delete the file referenced by ``name``.
+        """Delete the file referenced by ``name``.
 
-        :param name: the name of the file to be deleted
-        :type name: str
-        :raises silo.exceptions.FileNotFoundError: if a file with the
-          given `name` does not exist
-        :raises NotImplementedError: if the storage system does not
-          support file deletion
+        If the file does not exist, raises :exc:`.FileNotFoundError`.
+
+        If the storage system does not support file deletion, raises
+        :exc:`~exceptions.NotImplementedError`.
+
         """
         raise NotImplementedError
 
     def exists(self, name):
-        """
-        Check for the existence of a file.
+        """Return ``True`` if the file referenced by ``name`` exists in
+        the storage system, or ``False`` if the name is available for a
+        new file.
 
-        :param name: the name of the file to check for existence
-        :type name: str
-        :return: ``True`` if `name` refers to an existing file within
-          this storage, or ``False`` if the name is available for a new
-          file.
-        :rtype: bool
         """
         raise NotImplementedError
 
-    def open(self, name, mode='rb'):
-        """
-        Open a file.
+    def open(self, name, mode='r', encoding=None):
+        """Open the file referenced by ``name`` and return a
+        corresponding stream.
 
-        :param name: the name of the file to be opened
-        :type name: str
-        :param mode: a string indicating how the file should be opened
-        :type mode: str
-        :raises silo.exceptions.FileNotFoundError: if a file with the
-          given `name` does not exist
+        The optional parameters ``mode`` and ``encoding`` are the same
+        as in :func:`io.open`.
+
+        If :meth:`open` is used to open a file for reading and the file
+        with the given ``name`` does not exist, :meth:`open` will raise
+        :exc:`.FileNotFoundError`.
+
+        See also: :func:`io.open`.
+
         """
         raise NotImplementedError
 
     def size(self, name):
-        """
-        Return the size of a file in bytes.
+        """Return the size of the file referenced by ``name`` in bytes.
 
-        :param name: the name of the file
-        :type name: str
-        :return: the size of the file in bytes
-        :rtype: int
-        :raises silo.exceptions.FileNotFoundError: if a file with the
-          given `name` does not exist
-        :raises NotImplementedError: if the storage system is not able
-          to return the file size
+        If the file does not exist, raises :exc:`.FileNotFoundError`.
+
+        If the storage system is not able to return the file size,
+        raises :exc:`~exceptions.NotImplementedError`.
+
         """
         raise NotImplementedError
 
     def url(self, name):
-        """
-        Return the URL where the file referenced by ``name`` can be
-        accessed.
+        """Return a public URL for the file referenced by ``name``.
 
-        :param name: the name of the file
-        :type name: str
-        :return: the URL where file can be accessed
-        :rtype: str
-        :raises NotImplementedError: if the storage system does not
-          support access by URL
+        If the file does not exist, this function *may* raise
+        :exc:`.FileNotFoundError`. However, storage system
+        implementations can choose to return the URL for the file, even
+        if the file does not exist, e.g. for performance reasons.
+
+        If the storage system does not support access by URL, raises
+        :exc:`~exceptions.NotImplementedError`.
+
         """
         raise NotImplementedError
