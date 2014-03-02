@@ -7,6 +7,12 @@ Silo
 .. image:: http://img.shields.io/coveralls/jpvanhal/silo/master.svg
   :target: https://coveralls.io/r/jpvanhal/silo?branch=master
 
+.. image:: http://img.shields.io/pypi/dm/silo.svg
+  :target: https://pypi.python.org/pypi/silo
+
+.. image:: http://img.shields.io/pypi/v/silo.svg
+  :target: https://pypi.python.org/pypi/silo
+
 Silo is a file storage abstraction layer for Python.
 
 File storages supported:
