@@ -14,7 +14,7 @@ def get_version():
 
 
 setup(
-    name='Silo',
+    name='silo',
     version=get_version(),
     description='File storage abstraction layer',
     long_description=(
