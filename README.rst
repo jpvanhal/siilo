@@ -1,5 +1,5 @@
 Silo
-==========
+====
 
 .. image:: http://img.shields.io/travis/jpvanhal/silo/master.svg
    :target: http://travis-ci.org/jpvanhal/silo
