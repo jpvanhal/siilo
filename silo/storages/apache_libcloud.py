@@ -18,6 +18,59 @@ from .base import Storage
 
 
 class ApacheLibcloudStorage(Storage):
+    """A storage driver for `Apache Libcloud`_
+
+    .. _Apache Libcloud: https://libcloud.apache.org/
+
+    Apache Libcloud is a Python library that provides a unified API for
+    many popular cloud service providers. This storage driver supports
+    the same storage providers as Libcloud. As of version 0.14 of
+    Libcloud this includes:
+
+    - Amazon S3
+    - CloudFiles
+    - Google Storage
+    - KTUCloud Storage
+    - Microsoft Azure
+    - Nimbus.io
+    - Ninefold
+    - OpenStack Swift
+
+    In order to use this storage driver you need to have Apache Libcloud
+    installed. You can install it using pip::
+
+        pip install apache-libcloud
+
+    Internally, when you open a file, :class:`ApacheLibcloudStorage`
+    will return a file-like wrapper to a temporary file. If you open the
+    file for only reading or appending, :class:`ApacheLibcloudStorage`
+    will also download the file from the cloud storage to the temporary
+    file. Likewise, when you write to a file and close it,
+    :class:`ApacheLibcloudStorage` will upload it the the cloud storage.
+
+    Example::
+
+        from libcloud.storage.types import Provider
+        from libcloud.storage.providers import get_driver
+        from silo.storages.apache_libcloud import ApacheLibcloudStorage
+
+        driver_cls = get_driver(Provider.S3)
+        driver = driver_cls('api key', 'api secret key')
+
+        container = driver.get_container(container_name='example-bucket')
+
+        storage = ApacheLibcloudStorage(container)
+
+        with storage.open('hello.txt', 'w') as f:
+            f.write('Hello World!')
+
+        with storage.open('hello.txt', 'r') as f:
+            print(f.read())
+
+    :param container:
+        the :class:`~libcloud.storage.base.Container` used by this
+        storage for file operations
+    """
     def __init__(self, container):
         self.container = container
 

@@ -93,7 +93,8 @@ pygments_style = 'sphinx'
 #modindex_common_prefix = []
 
 intersphinx_mapping = {
-    'python': ('http://docs.python.org/', None)
+    'python': ('http://docs.python.org/', None),
+    'libcloud': ('http://libcloud.readthedocs.org/en/latest/', None),
 }
 
 # -- Options for HTML output ---------------------------------------------------
