@@ -2,8 +2,8 @@
 Siilo
 =====
 
-Siilo is a file abstraction layer for Python. It is inspired by `Django's File
-storage API`_, but is framework agnostic.
+Siilo is a file storage abstraction layer for Python. It is inspired by
+`Django's File storage API`_, but is framework agnostic.
 
 .. _Django's File storage API:
    https://docs.djangoproject.com/en/dev/ref/files/storage/
