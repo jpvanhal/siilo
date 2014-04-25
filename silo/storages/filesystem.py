@@ -37,9 +37,24 @@ class FileSystemStorage(Storage):
     """
     A storage for the local filesystem.
 
-    :param base_directory: the directory where the file storage is
-        located in.
-    :type directory: str
+    Example::
+
+        from silo.storages.filesystem import FileSystemStorage
+
+        storage = FileSystemStorage(
+            base_directory='/path/to/uploads',
+            base_url='http://media.example.com/'
+        )
+
+        with storage.open('hello.txt', 'w') as f:
+            f.write('Hello World!')
+
+        assert storage.url('hello.txt') == 'http://media.example.com/hello.txt'
+
+    :param base_directory:
+        the directory where the file storage is located in.
+    :param base_url:
+        URL that serves the files in this file storage.
     """
     def __init__(self, base_directory, base_url=None):
         self.base_directory = base_directory
