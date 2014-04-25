@@ -1,5 +1,0 @@
-Storages
-========
-
-Local Filesystem
-----------------
