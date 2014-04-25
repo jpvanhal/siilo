@@ -41,7 +41,7 @@ class FileSystemStorage(Storage):
         located in.
     :type directory: str
     """
-    def __init__(self, base_directory, base_url):
+    def __init__(self, base_directory, base_url=None):
         self.base_directory = base_directory
         self.base_url = base_url
 
