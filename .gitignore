@@ -3,6 +3,7 @@
 .coverage
 .env
 .tox/
+build/
 dist/
 docs/_build/
 htmlcov/
