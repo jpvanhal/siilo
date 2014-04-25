@@ -9,6 +9,7 @@
 
 
 class Storage(object):
+    """An abstract interface for concrete storage drivers."""
 
     def delete(self, name):
         """Delete the file referenced by ``name``.
