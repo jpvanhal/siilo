@@ -1,5 +1,7 @@
-File System
-===========
+.. _local-filesystem:
+
+Local Filesystem
+================
 
 .. module:: silo.storages.filesystem
 .. autoclass:: FileSystemStorage

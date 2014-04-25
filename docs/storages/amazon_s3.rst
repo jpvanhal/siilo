@@ -1,3 +1,5 @@
+.. _amazon-s3:
+
 Amazon S3
 =========
 

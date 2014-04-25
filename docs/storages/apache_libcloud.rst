@@ -1,3 +1,5 @@
+.. _apache-libcloud:
+
 Apache Libcloud
 ===============
 
