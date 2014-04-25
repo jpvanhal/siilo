@@ -10,9 +10,6 @@ from datetime import date, datetime, timedelta
 import hashlib
 import hmac
 
-from libcloud.storage.types import Provider
-from libcloud.storage.providers import get_driver
-
 from .._compat import force_bytes, quote, urlunparse
 from ..exceptions import ArgumentError
 from .apache_libcloud import ApacheLibcloudStorage
@@ -109,12 +106,12 @@ class AmazonS3Storage(ApacheLibcloudStorage):
     """
 
     LIBCLOUD_S3_PROVIDERS_BY_REGION = {
-        'ap-northeast-1': Provider.S3_AP_NORTHEAST,
-        'ap-southeast-1': Provider.S3_AP_SOUTHEAST,
-        'eu-west-1': Provider.S3_EU_WEST,
-        'us-east-1': Provider.S3,
-        'us-west-1': Provider.S3_US_WEST,
-        'us-west-2': Provider.S3_US_WEST_OREGON,
+        'ap-northeast-1': 'S3_AP_NORTHEAST',
+        'ap-southeast-1': 'S3_AP_SOUTHEAST',
+        'eu-west-1': 'S3_EU_WEST',
+        'us-east-1': 'S3',
+        'us-west-1': 'S3_US_WEST',
+        'us-west-2': 'S3_US_WEST_OREGON',
     }
 
     def __init__(self, access_key_id, secret_access_key, bucket,
@@ -135,13 +132,16 @@ class AmazonS3Storage(ApacheLibcloudStorage):
 
     @property
     def _driver(self):
+        from libcloud.storage.providers import get_driver
         driver_cls = get_driver(self._provider)
         return driver_cls(self._access_key_id, self._secret_access_key)
 
     @property
     def _provider(self):
+        from libcloud.storage.types import Provider
         try:
-            return self.LIBCLOUD_S3_PROVIDERS_BY_REGION[self._region]
+            provider_name = self.LIBCLOUD_S3_PROVIDERS_BY_REGION[self._region]
+            return getattr(Provider, provider_name)
         except KeyError:
             raise ArgumentError(
                 'Invalid value {invalid_region!r} for region. Valid Amazon S3 '

@@ -11,8 +11,6 @@ import os
 import shutil
 import tempfile
 
-from libcloud.storage.types import ObjectDoesNotExistError
-
 from silo.exceptions import FileNotFoundError
 from .base import Storage
 
@@ -75,12 +73,14 @@ class ApacheLibcloudStorage(Storage):
         self.container = container
 
     def _get_object(self, name):
+        from libcloud.storage.types import ObjectDoesNotExistError
         try:
             return self.container.get_object(name)
         except ObjectDoesNotExistError:
             raise FileNotFoundError(name)
 
     def delete(self, name):
+        from libcloud.storage.types import ObjectDoesNotExistError
         obj = self._get_object(name)
         try:
             obj.delete()
