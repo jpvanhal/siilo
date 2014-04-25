@@ -13,8 +13,8 @@ Silo
 .. image:: http://img.shields.io/pypi/v/silo.svg
   :target: https://pypi.python.org/pypi/silo
 
-Silo is a file abstraction layer for Python. It is inspired by
-`Django’s File storage API`_, but is framework agnostic.
+Silo is a file abstraction layer for Python. It is inspired by `Django's File
+storage API`_, but is framework agnostic.
 
 .. _Django's File storage API:
    https://docs.djangoproject.com/en/dev/ref/files/storage/
