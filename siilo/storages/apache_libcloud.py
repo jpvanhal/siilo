@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    silo.storages.apache_libcloud
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    siilo.storages.apache_libcloud
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     :copyright: (c) 2014 by Janne Vanhala.
     :license: MIT, see LICENSE for more details.
@@ -11,7 +11,7 @@ import os
 import shutil
 import tempfile
 
-from silo.exceptions import FileNotFoundError
+from siilo.exceptions import FileNotFoundError
 from .base import Storage
 
 
@@ -50,7 +50,7 @@ class ApacheLibcloudStorage(Storage):
 
         from libcloud.storage.types import Provider
         from libcloud.storage.providers import get_driver
-        from silo.storages.apache_libcloud import ApacheLibcloudStorage
+        from siilo.storages.apache_libcloud import ApacheLibcloudStorage
 
         driver_cls = get_driver(Provider.S3)
         driver = driver_cls('api key', 'api secret key')

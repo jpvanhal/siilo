@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-    silo.exceptions
-    ~~~~~~~~~~~~~~~
+    siilo.exceptions
+    ~~~~~~~~~~~~~~~~
 
-    This module contains Silo-specific exceptions.
+    This module contains Siilo-specific exceptions.
 
     :copyright: (c) 2014 by Janne Vanhala.
     :license: MIT, see LICENSE for more details.
@@ -14,18 +14,18 @@ from __future__ import unicode_literals
 from ._compat import force_text, unicode_compatible
 
 
-class SiloError(Exception):
+class SiiloError(Exception):
     """
-    Base class for all Silo exceptions.
+    Base class for all Siilo exceptions.
     """
 
 
-class ArgumentError(SiloError):
+class ArgumentError(SiiloError):
     pass
 
 
 @unicode_compatible
-class FileNotFoundError(SiloError):
+class FileNotFoundError(SiiloError):
     """
     Raised when attempting to access a file that does not exist.
 
@@ -40,14 +40,14 @@ class FileNotFoundError(SiloError):
 
 
 @unicode_compatible
-class FileNotWithinStorageError(SiloError):
+class FileNotWithinStorageError(SiiloError):
     """
     Raised when a suspicious filename is supplied to a storage.
 
     This error occurs when using :class:`.FileSystemStorage` and trying
     to access a file not within the base directory::
 
-        >>> from silo.storages.filesystem import FileSystemStorage
+        >>> from siilo.storages.filesystem import FileSystemStorage
         >>> storage = FileSystemStorage(base_directory='/path/to/storage/root')
         >>> storage.open('/etc/passwd')
         Traceback (most recent call last):
@@ -66,7 +66,7 @@ class FileNotWithinStorageError(SiloError):
         )
 
 
-class FileNotAccessibleViaURLError(SiloError):
+class FileNotAccessibleViaURLError(SiiloError):
     """
     Raised when trying to get a URL for a file that is not accessible
     via a URL.
@@ -75,7 +75,7 @@ class FileNotAccessibleViaURLError(SiloError):
     :attr:`.FileSystemStorage.base_url` defined and trying to get a URL
     for a file::
 
-        >>> from silo.storages.filesystem import FileSystemStorage
+        >>> from siilo.storages.filesystem import FileSystemStorage
         >>> storage = FileSystemStorage(base_directory='/path/to/storage/root')
         >>> storage.url('image.jpg')
         Traceback (most recent call last):

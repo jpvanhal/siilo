@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    silo.compat
-    ~~~~~~~~~~~
+    siilo.compat
+    ~~~~~~~~~~~~
 
     :copyright: (c) 2014 by Janne Vanhala.
     :license: MIT, see LICENSE for more details.

@@ -3,7 +3,7 @@ import os
 
 import pytest
 
-from silo.exceptions import (
+from siilo.exceptions import (
     FileNotAccessibleViaURLError,
     FileNotFoundError,
     FileNotWithinStorageError,
@@ -12,7 +12,7 @@ from silo.exceptions import (
 
 @pytest.fixture
 def storage(tmpdir):
-    from silo.storages.filesystem import FileSystemStorage
+    from siilo.storages.filesystem import FileSystemStorage
     return FileSystemStorage(
         base_directory=str(tmpdir),
         base_url='http://www.example.com/'

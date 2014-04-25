@@ -10,6 +10,6 @@ install:
   - pip install coveralls
   - pip install tox
 script:
-  - tox -e $TOX_ENV -- --cov=silo
+  - tox -e $TOX_ENV -- --cov=siilo
 after_success:
   coveralls

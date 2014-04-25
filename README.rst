@@ -1,31 +1,31 @@
-Silo
-====
+Siilo
+=====
 
-.. image:: http://img.shields.io/travis/jpvanhal/silo/master.svg
-   :target: http://travis-ci.org/jpvanhal/silo
+.. image:: http://img.shields.io/travis/jpvanhal/siilo/master.svg
+   :target: http://travis-ci.org/jpvanhal/siilo
 
-.. image:: http://img.shields.io/coveralls/jpvanhal/silo/master.svg
-  :target: https://coveralls.io/r/jpvanhal/silo?branch=master
+.. image:: http://img.shields.io/coveralls/jpvanhal/siilo/master.svg
+  :target: https://coveralls.io/r/jpvanhal/siilo?branch=master
 
-.. image:: http://img.shields.io/pypi/dm/silo.svg
-  :target: https://pypi.python.org/pypi/silo
+.. image:: http://img.shields.io/pypi/dm/siilo.svg
+  :target: https://pypi.python.org/pypi/siilo
 
-.. image:: http://img.shields.io/pypi/v/silo.svg
-  :target: https://pypi.python.org/pypi/silo
+.. image:: http://img.shields.io/pypi/v/siilo.svg
+  :target: https://pypi.python.org/pypi/siilo
 
-Silo is a file abstraction layer for Python. It is inspired by `Django's File
+Siilo is a file abstraction layer for Python. It is inspired by `Django's File
 storage API`_, but is framework agnostic.
 
 .. _Django's File storage API:
    https://docs.djangoproject.com/en/dev/ref/files/storage/
 
-Silo supports for the following file storages:
+Siilo supports for the following file storages:
 
 - Local Filesystem
 - Apache Libcloud
 - Amazon S3
 
-Silo has the following goals:
+Siilo has the following goals:
 
 - to be compatible with Python’s file API
 - to support both Python 2 and 3
@@ -33,12 +33,12 @@ Silo has the following goals:
 
 You can install the library with pip::
 
-    pip install silo
+    pip install siilo
 
 Resources
 ---------
 
-* `Documentation <http://silo.readthedocs.org>`_
-* `Bug Tracker <http://github.com/jpvanhal/silo/issues>`_
-* `Code <http://github.com/jpvanhal/silo>`_
-* `Development Version <http://github.com/jpvanhal/silo/zipball/master#egg=silo-dev>`_
+* `Documentation <http://siilo.readthedocs.org>`_
+* `Bug Tracker <http://github.com/jpvanhal/siilo/issues>`_
+* `Code <http://github.com/jpvanhal/siilo>`_
+* `Development Version <http://github.com/jpvanhal/siilo/zipball/master#egg=siilo-dev>`_

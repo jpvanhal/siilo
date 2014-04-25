@@ -3,7 +3,7 @@
 Local Filesystem
 ================
 
-.. module:: silo.storages.filesystem
+.. module:: siilo.storages.filesystem
 .. autoclass:: FileSystemStorage
    :members:
    :show-inheritance:

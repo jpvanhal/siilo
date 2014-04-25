@@ -10,7 +10,7 @@ from libcloud.storage.base import Container
 from libcloud.storage.types import ObjectDoesNotExistError
 import pytest
 
-from silo.exceptions import FileNotFoundError
+from siilo.exceptions import FileNotFoundError
 
 
 @pytest.fixture
@@ -20,7 +20,7 @@ def container():
 
 @pytest.fixture
 def storage(container):
-    from silo.storages.apache_libcloud import ApacheLibcloudStorage
+    from siilo.storages.apache_libcloud import ApacheLibcloudStorage
     return ApacheLibcloudStorage(container=container)
 
 
@@ -106,7 +106,7 @@ def test_url_raises_error_if_file_doesnt_exist(
 
 def test_open_returns_libcloud_file_with_default_mode_and_encoding(storage):
     with mock.patch(
-        'silo.storages.apache_libcloud.LibcloudFile'
+        'siilo.storages.apache_libcloud.LibcloudFile'
     ) as MockLibcloudFile:
         MockLibcloudFile.return_value = mock.sentinel.file
         file_ = storage.open('some_file.txt')
@@ -121,7 +121,7 @@ def test_open_returns_libcloud_file_with_default_mode_and_encoding(storage):
 
 def test_open_returns_libcloud_file_with_given_mode_and_encoding(storage):
     with mock.patch(
-        'silo.storages.apache_libcloud.LibcloudFile'
+        'siilo.storages.apache_libcloud.LibcloudFile'
     ) as MockLibcloudFile:
         MockLibcloudFile.return_value = mock.sentinel.file
         file_ = storage.open('some_file.txt', 'w', 'utf-8')
@@ -197,7 +197,7 @@ def test_uploads_file_opened_in_write_mode_but_not_written_to_to_storage(
     storage, container, mode, object_does_not_exist
 ):
     container.get_object.side_effect = object_does_not_exist
-    with mock.patch('silo.storages.apache_libcloud.io.open') as mock_open:
+    with mock.patch('siilo.storages.apache_libcloud.io.open') as mock_open:
         mock_open.return_value = mock.MagicMock(closed=False)
         with storage.open('some_file.txt', mode) as file_:
             pass
@@ -222,7 +222,7 @@ def test_uploads_file_opened_in_write_mode_but_not_written_to_to_storage(
 def test_uploads_file_written_to_to_storage(
     storage, container, mode, method_name, method_args
 ):
-    with mock.patch('silo.storages.apache_libcloud.io.open') as mock_open:
+    with mock.patch('siilo.storages.apache_libcloud.io.open') as mock_open:
         mock_open.return_value = mock.MagicMock(closed=False)
         with storage.open('some_file.txt', mode) as file_:
             method = getattr(file_, method_name)

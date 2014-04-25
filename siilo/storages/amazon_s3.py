@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    silo.storages.amazon_s3
-    ~~~~~~~~~~~~~~~~~~~~~~~
+    siilo.storages.amazon_s3
+    ~~~~~~~~~~~~~~~~~~~~~~~~
 
     :copyright: (c) 2014 by Janne Vanhala.
     :license: MIT, see LICENSE for more details.
@@ -33,7 +33,7 @@ class AmazonS3Storage(ApacheLibcloudStorage):
 
     Example::
 
-        from silo.storages.amazon_s3 import AmazonS3Storage
+        from siilo.storages.amazon_s3 import AmazonS3Storage
 
         storage = AmazonS3Storage(
             access_key_id='your access key id',

@@ -1,17 +1,17 @@
 API reference
 =============
 
-.. module:: silo
+.. module:: siilo
 
 This part of the documentation covers all the public classes and functions
-in Silo.
+in Siilo.
 
 
 Storage Interface
 -----------------
 
 
-.. module:: silo.storages.base
+.. module:: siilo.storages.base
 .. autoclass:: Storage
    :members:
 
@@ -19,8 +19,8 @@ Storage Interface
 Exceptions
 ----------
 
-.. module:: silo.exceptions
-.. autoexception:: SiloError
+.. module:: siilo.exceptions
+.. autoexception:: SiiloError
 .. autoexception:: FileNotFoundError
 .. autoexception:: FileNotWithinStorageError
 .. autoexception:: FileNotAccessibleViaURLError

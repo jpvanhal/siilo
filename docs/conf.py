@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Silo documentation build configuration file, created by
+# Siilo documentation build configuration file, created by
 # sphinx-quickstart on Thu Aug 16 19:55:05 2012.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -46,7 +46,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Silo'
+project = u'Siilo'
 copyright = u'2014, Janne Vanhala'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -54,7 +54,7 @@ copyright = u'2014, Janne Vanhala'
 # built documents.
 #
 # The short X.Y version.
-version =  __import__('pkg_resources').get_distribution('silo').version
+version =  __import__('pkg_resources').get_distribution('siilo').version
 # The full version, including alpha/beta/rc tags.
 release = version
 
@@ -174,7 +174,7 @@ html_theme = 'default'
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'Silodoc'
+htmlhelp_basename = 'Siilodoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -193,7 +193,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'Silo.tex', u'Silo Documentation',
+  ('index', 'Siilo.tex', u'Siilo Documentation',
    u'Janne Vanhala', 'manual'),
 ]
 
@@ -223,7 +223,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'silo', u'Silo Documentation',
+    ('index', 'siilo', u'Siilo Documentation',
      [u'Janne Vanhala'], 1)
 ]
 
@@ -237,8 +237,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'Silo', u'Silo Documentation',
-   u'Janne Vanhala', 'Silo', 'One line description of project.',
+  ('index', 'Siilo', u'Siilo Documentation',
+   u'Janne Vanhala', 'Siilo', 'One line description of project.',
    'Miscellaneous'),
 ]
 

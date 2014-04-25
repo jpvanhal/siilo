@@ -12,14 +12,14 @@ from libcloud.storage.base import Container
 from libcloud.storage.drivers.s3 import BaseS3StorageDriver
 import pytest
 
-from silo.exceptions import ArgumentError
+from siilo.exceptions import ArgumentError
 
 
 class TestAmazonS3Storage(object):
 
     @staticmethod
     def make_storage(**kwargs):
-        from silo.storages.amazon_s3 import AmazonS3Storage
+        from siilo.storages.amazon_s3 import AmazonS3Storage
 
         with mock.patch.object(
             BaseS3StorageDriver,
@@ -39,7 +39,7 @@ class TestAmazonS3Storage(object):
         return self.make_storage()
 
     def test_inherits_from_apache_libcloud_storage(self, storage):
-        from silo.storages.apache_libcloud import ApacheLibcloudStorage
+        from siilo.storages.apache_libcloud import ApacheLibcloudStorage
         assert isinstance(storage, ApacheLibcloudStorage)
 
     def test_constructor_creates_container(self, storage):
@@ -206,7 +206,7 @@ class TestAmazonS3Storage(object):
 
 @pytest.fixture(scope='session')
 def signer():
-    from silo.storages.amazon_s3 import _SignerV4
+    from siilo.storages.amazon_s3 import _SignerV4
     return _SignerV4(
         access_key_id='AKIAIOSFODNN7EXAMPLE',
         secret_access_key='wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
@@ -238,7 +238,7 @@ class TestSignerV4(object):
 
     @pytest.fixture
     def s3_request(self, headers, params):
-        from silo.storages.amazon_s3 import _S3Request
+        from siilo.storages.amazon_s3 import _S3Request
         return _S3Request(
             method='GET',
             endpoint='s3.amazonaws.com',
@@ -337,7 +337,7 @@ e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 
     @pytest.fixture
     def s3_request(self):
-        from silo.storages.amazon_s3 import _S3Request
+        from siilo.storages.amazon_s3 import _S3Request
         return _S3Request(
             method='GET',
             endpoint='s3.amazonaws.com',
@@ -387,7 +387,7 @@ class TestSignerV4PUTObjectExample(_TestSignerV4Example):
 
     @pytest.fixture
     def s3_request(self):
-        from silo.storages.amazon_s3 import _S3Request
+        from siilo.storages.amazon_s3 import _S3Request
         return _S3Request(
             method='PUT',
             endpoint='s3.amazonaws.com',
@@ -432,7 +432,7 @@ e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 
     @pytest.fixture
     def s3_request(self):
-        from silo.storages.amazon_s3 import _S3Request
+        from siilo.storages.amazon_s3 import _S3Request
         return _S3Request(
             method='GET',
             use_https=False,
@@ -478,7 +478,7 @@ e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 
     @pytest.fixture
     def s3_request(self):
-        from silo.storages.amazon_s3 import _S3Request
+        from siilo.storages.amazon_s3 import _S3Request
         return _S3Request(
             method='GET',
             use_https=False,
@@ -503,14 +503,14 @@ e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 class TestPresignerV4Example(object):
     @pytest.fixture(scope='class')
     def presigner(self, signer):
-        from silo.storages.amazon_s3 import _PresignerV4
+        from siilo.storages.amazon_s3 import _PresignerV4
         presigner = _PresignerV4(signer)
         presigner._get_timestamp = mock.Mock(return_value='20130524T000000Z')
         return presigner
 
     @pytest.fixture(scope='class')
     def s3_request(self, presigner):
-        from silo.storages.amazon_s3 import _S3Request
+        from siilo.storages.amazon_s3 import _S3Request
         request = _S3Request(
             method='GET',
             endpoint='s3.amazonaws.com',
@@ -557,7 +557,7 @@ class TestPresignerV4Example(object):
     ]
 )
 def test_expires_in_seconds(input, output):
-    from silo.storages.amazon_s3 import _expires_in_seconds
+    from siilo.storages.amazon_s3 import _expires_in_seconds
     with freezegun.freeze_time('2014-01-03 17:00'):
         assert _expires_in_seconds(input) == output
 
@@ -576,5 +576,5 @@ def test_expires_in_seconds(input, output):
     ]
 )
 def test_uri_encode(string, quoted, encode_slash):
-    from silo.storages.amazon_s3 import _uri_encode
+    from siilo.storages.amazon_s3 import _uri_encode
     assert _uri_encode(string, encode_slash) == quoted

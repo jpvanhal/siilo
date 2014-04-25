@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from silo._compat import text_type, force_bytes, force_text
-from silo.exceptions import (
+from siilo._compat import text_type, force_bytes, force_text
+from siilo.exceptions import (
     FileNotAccessibleViaURLError,
     FileNotFoundError,
     FileNotWithinStorageError,
-    SiloError,
+    SiiloError,
 )
 
 
@@ -52,4 +52,4 @@ class TestExceptions(object):
         assert text_type(exception) == force_text(message)
 
     def test_is_silo_exception(self, exception, name, message):
-        assert isinstance(exception, SiloError)
+        assert isinstance(exception, SiiloError)

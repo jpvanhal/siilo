@@ -7,14 +7,14 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 
 def get_version():
-    filename = os.path.join(HERE, 'silo', '__init__.py')
+    filename = os.path.join(HERE, 'siilo', '__init__.py')
     contents = open(filename).read()
     pattern = r"^__version__ = '(.*?)'$"
     return re.search(pattern, contents, re.MULTILINE).group(1)
 
 
 setup(
-    name='silo',
+    name='siilo',
     version=get_version(),
     description='File storage abstraction layer',
     long_description=(
@@ -23,10 +23,10 @@ setup(
     ),
     author='Janne Vanhala',
     author_email='janne.vanhala@gmail.com',
-    url='http://github.com/jpvanhal/silo',
+    url='http://github.com/jpvanhal/siilo',
     packages=[
-        'silo',
-        'silo.storages',
+        'siilo',
+        'siilo.storages',
     ],
     package_data={
         '': ['LICENSE']

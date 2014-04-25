@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    silo.storages.filesystem
-    ~~~~~~~~~~~~~~~~~~~~~~~~
+    siilo.storages.filesystem
+    ~~~~~~~~~~~~~~~~~~~~~~~~~
 
     :copyright: (c) 2014 by Janne Vanhala.
     :license: MIT, see LICENSE for more details.
@@ -13,7 +13,7 @@ import io
 import os
 
 from .._compat import urljoin, quote
-from silo.exceptions import (
+from siilo.exceptions import (
     FileNotAccessibleViaURLError,
     FileNotFoundError,
     FileNotWithinStorageError
@@ -39,7 +39,7 @@ class FileSystemStorage(Storage):
 
     Example::
 
-        from silo.storages.filesystem import FileSystemStorage
+        from siilo.storages.filesystem import FileSystemStorage
 
         storage = FileSystemStorage(
             base_directory='/path/to/uploads',
