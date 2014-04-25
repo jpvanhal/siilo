@@ -30,9 +30,9 @@ class AmazonS3Storage(ApacheLibcloudStorage):
         pip install apache-libcloud
 
     Although, Apache Libcloud supports Amazon S3 directly, it doesn't
-    support generating URLs for files. :class:`AmazonS3Storage` fills
-    this void and provides support for generating both regular and
-    presigned URLs to files in S3.
+    support generating URLs for files, but :class:`AmazonS3Storage`
+    provides support for generating both regular and presigned URLs to
+    files in S3.
 
     Example::
 
