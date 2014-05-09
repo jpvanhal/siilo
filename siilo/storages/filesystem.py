@@ -35,7 +35,7 @@ def _ensure_file_exists(method):
 
 class FileSystemStorage(Storage):
     """
-    A storage for the local filesystem.
+    A storage driver for the local filesystem.
 
     Example::
 
@@ -52,9 +52,15 @@ class FileSystemStorage(Storage):
         assert storage.url('hello.txt') == 'http://media.example.com/hello.txt'
 
     :param base_directory:
-        the directory where the file storage is located in.
+        the directory where the files of this file storage are located
+        in
+
     :param base_url:
-        URL that serves the files in this file storage.
+        can be used to specify the base URL for the files in this file
+        storage on the web. You must specify this, if you want to use
+        :meth:`.url`. Otherwise :meth:`.url` will raise
+        :exc:`.FileNotAccessibleViaURLError`.
+
     """
     def __init__(self, base_directory, base_url=None):
         self.base_directory = base_directory
